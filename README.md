@@ -1,5 +1,7 @@
 # Pinhoso’s Kicks
 
+![Página inicial da loja Pinhoso's Kicks](docs/tela.webp)
+
 Loja virtual de demonstração. **Pinhoso’s Kicks é um nome fictício, e todas as marcas, modelos, preços, estoques e pedidos foram inventados.** Nada aqui está à venda e nenhum pagamento é feito.
 
 Publicada em: <https://toshiro01001.github.io/tenis-primeiro/>
@@ -79,4 +81,4 @@ Servidor e banco de dados, login do lojista, intermediador de pagamento (Pix e c
 
 Demonstração feita por [Mil e Uma Linhas!](https://mileumalinhas.com.br)
 
-Desenvolvido por Rodrigo Terroso Junior. O Claude, da Anthropic, foi usado como ferramenta durante o desenvolvimento.
+Desenvolvi este projeto e usei o Claude, da Anthropic, como ferramenta durante o desenvolvimento.
