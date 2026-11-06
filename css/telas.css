@@ -30,7 +30,7 @@
 /* Abertura: nome enorme, tênis pisando na borda de baixo */
 
 .abertura {
-  background: var(--azul-fundo);
+  background: var(--preto);
   color: #fff;
   overflow-x: clip; /* A entrada do tênis não pode alargar a página no celular. */
 }
@@ -208,20 +208,20 @@
   gap: 6px;
   min-height: 44px;
   padding: 2px 11px;
-  border: 2px solid var(--tinta);
+  border: 2px solid var(--linha);
   border-radius: 3px;
-  background: #fff;
+  background: var(--campo);
 }
 
 .opcao__cor {
   width: 12px;
   height: 12px;
   background: var(--cor);
-  border: 2px solid var(--tinta);
+  border: 2px solid var(--linha);
 }
 
 .opcao input:hover + .opcao__rotulo {
-  background: #fff6c0;
+  background: var(--realce);
 }
 
 .opcao input:checked + .opcao__rotulo {
@@ -230,7 +230,7 @@
 }
 
 .opcao input:focus-visible + .opcao__rotulo {
-  outline: 3px solid var(--azul);
+  outline: 3px solid var(--dourado);
   outline-offset: 2px;
 }
 
@@ -254,7 +254,7 @@
   right: 0;
   top: 19px;
   height: 6px;
-  background: linear-gradient(to right, #c9cbdb var(--de), var(--azul) var(--de), var(--azul) var(--ate), #c9cbdb var(--ate));
+  background: linear-gradient(to right, var(--linha) var(--de), var(--vermelho) var(--de), var(--vermelho) var(--ate), var(--linha) var(--ate));
 }
 
 .faixa__controles input {
@@ -272,8 +272,8 @@
 .faixa__controles input::-webkit-slider-thumb {
   width: 24px;
   height: 30px;
-  background: var(--amarelo);
-  border: 3px solid var(--tinta);
+  background: var(--dourado);
+  border: 2px solid var(--linha);
   border-radius: 3px;
   cursor: grab;
   pointer-events: auto;
@@ -284,8 +284,8 @@
 .faixa__controles input::-moz-range-thumb {
   width: 18px;
   height: 24px;
-  background: var(--amarelo);
-  border: 3px solid var(--tinta);
+  background: var(--dourado);
+  border: 2px solid var(--linha);
   border-radius: 3px;
   cursor: grab;
   pointer-events: auto;
@@ -328,7 +328,7 @@
   padding: 44px 20px 0;
   background: var(--caixa);
   border: var(--borda);
-  border-bottom: 12px solid var(--tinta);
+  border-bottom: 12px solid var(--linha);
   overflow: hidden;
 }
 
@@ -414,8 +414,8 @@
   align-items: center;
   justify-content: center;
   height: 48px;
-  background: #fff;
-  border: 2px solid var(--tinta);
+  background: var(--campo);
+  border: 2px solid var(--linha);
   border-radius: 3px;
   font-size: 1.0625rem;
   font-weight: 750;
@@ -423,16 +423,16 @@
 }
 
 .tamanho input:hover:not(:disabled) + span {
-  background: #fff6c0;
+  background: var(--realce);
 }
 
 .tamanho input:checked + span {
-  background: var(--amarelo);
-  box-shadow: 3px 3px 0 var(--tinta);
+  background: var(--dourado);
+  box-shadow: 3px 3px 0 var(--vermelho);
 }
 
 .tamanho input:focus-visible + span {
-  outline: 3px solid var(--azul);
+  outline: 3px solid var(--dourado);
   outline-offset: 2px;
 }
 
@@ -442,7 +442,7 @@
 
 .tamanho input:disabled + span {
   background: linear-gradient(to top right, transparent calc(50% - 1px), var(--tinta-suave) calc(50% - 1px), var(--tinta-suave) calc(50% + 1px), transparent calc(50% + 1px)), #eceef6;
-  border-color: #8c8ea6;
+  border-color: var(--linha);
   color: var(--tinta-suave);
   font-weight: 500;
 }
@@ -475,7 +475,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 7px 0;
-  border-bottom: 1px solid var(--tinta);
+  border-bottom: 1px solid var(--linha);
 }
 
 .ficha dt {
@@ -625,8 +625,8 @@
 
 .cupom--ativo {
   padding: 10px 12px;
-  background: #fff6c0;
-  border: 2px dashed var(--tinta);
+  background: var(--realce);
+  border: 2px dashed var(--dourado);
 }
 
 /* Checkout */
@@ -645,7 +645,7 @@
   align-items: center;
   gap: 8px;
   padding-top: 8px;
-  border-top: 6px solid #b5b8cc;
+  border-top: 6px solid var(--linha);
   font-weight: 650;
   line-height: 1.15;
 }
@@ -669,12 +669,12 @@
 
 .etapas__item--feita,
 .etapas__item--atual {
-  border-top-color: var(--azul);
+  border-top-color: var(--vermelho);
 }
 
 .etapas__item--atual::before {
-  background: var(--azul);
-  border-color: var(--azul);
+  background: var(--vermelho);
+  border-color: var(--vermelho);
   color: #fff;
 }
 
@@ -740,16 +740,16 @@
   gap: 10px;
   min-height: 56px;
   padding: 8px 12px;
-  border: 2px solid var(--tinta);
+  border: 2px solid var(--linha);
   border-radius: 3px;
-  background: #fff;
+  background: var(--campo);
   font-weight: 400;
   cursor: pointer;
 }
 
 .escolha:has(input:checked) {
-  background: #fff6c0;
-  box-shadow: inset 0 0 0 1px var(--tinta);
+  background: var(--realce);
+  box-shadow: inset 0 0 0 1px var(--dourado);
 }
 
 .escolha input {
@@ -757,7 +757,7 @@
   width: 20px;
   height: 20px;
   margin: 0;
-  accent-color: var(--azul);
+  accent-color: var(--vermelho);
 }
 
 .escolha__texto {
@@ -794,7 +794,7 @@
 
 .revisao__bloco {
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--tinta);
+  border-bottom: 1px solid var(--linha);
 }
 
 .revisao__bloco h2 {
@@ -822,8 +822,8 @@
   gap: 16px;
   padding: clamp(16px, 3vw, 28px);
   background: var(--papel);
-  border: 4px solid var(--tinta);
-  box-shadow: 8px 8px 0 var(--tinta);
+  border: 3px solid var(--dourado);
+  box-shadow: 8px 8px 0 var(--vermelho);
 }
 
 .expedicao__topo {
@@ -1069,7 +1069,7 @@
 }
 
 .estoque__celula input.zerado {
-  background: #fde3e6;
+  background: #3a0f16;
   border-color: var(--erro);
 }
 
@@ -1227,7 +1227,7 @@
   }
 
   .expedicao {
-    box-shadow: 5px 5px 0 var(--tinta);
+    box-shadow: 5px 5px 0 var(--vermelho);
   }
 
   .expedicao__dados {
@@ -1235,6 +1235,6 @@
   }
 
   .dialogo {
-    box-shadow: 4px 4px 0 var(--tinta);
+    box-shadow: 4px 4px 0 var(--vermelho);
   }
 }

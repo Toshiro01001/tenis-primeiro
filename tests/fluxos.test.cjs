@@ -211,7 +211,7 @@ async function fluxoVitrine(pagina, tela, base) {
   conferir(`${tela.nome}: ordena do maior preço`, precos.every((preco, i) => i === 0 || precos[i - 1] >= preco), precos.join());
   conferir(`${tela.nome}: esgotado fica no fim`, (await pagina.locator('.prateleira .caixa').last().getAttribute('data-produto')) === 'estiagem-pro');
   await pagina.selectOption('#ordem', 'nome');
-  conferir(`${tela.nome}: ordena por nome`, (await pagina.locator('.etiqueta__nome').first().innerText()) === 'Canga Trek');
+  conferir(`${tela.nome}: ordena por nome`, (await pagina.locator('.etiqueta__nome').first().textContent()).trim() === 'Canga Trek');
 
   /* Sair para um produto e voltar mantém a busca. */
   await pagina.fill('#busca', 'vazante');

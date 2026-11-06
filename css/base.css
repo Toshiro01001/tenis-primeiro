@@ -9,25 +9,28 @@
 }
 
 :root {
-  --azul: #2a30d8;
-  --azul-fundo: #2329bf;
-  --tinta: #12133a;
-  --tinta-suave: #4b4e6d;
-  --papel: #fbfbfe;
-  --parede: #e4e6f1;
-  --amarelo: #ffe11a;
-  --erro: #bf1228;
-  --borda: 3px solid var(--tinta);
+  --vermelho: #c8102e;
+  --dourado: #e0b13a;
+  --preto: #0b0b0c;
+  --tinta: #f3eee2;
+  --tinta-suave: #b8b1a3;
+  --papel: #151517;
+  --parede: #0b0b0c;
+  --campo: #1f1f22;
+  --realce: #2e2610;
+  --linha: #4a463e;
+  --erro: #ff6b7a;
+  --borda: 2px solid var(--linha);
   --miolo: 1320px;
   --respiro: clamp(16px, 3vw, 40px);
-  --sombra-dura: 4px 4px 0 var(--tinta);
+  --sombra-dura: 4px 4px 0 var(--dourado);
 
   --texto-p: 0.875rem;
   --texto-m: 1rem;
   --texto-g: 1.25rem;
   --texto-xg: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 *,
@@ -118,7 +121,7 @@ svg {
 }
 
 :focus-visible {
-  outline: 3px solid var(--azul);
+  outline: 3px solid var(--dourado);
   outline-offset: 2px;
 }
 
@@ -137,7 +140,7 @@ svg {
   top: -60px;
   z-index: 50;
   padding: 10px 16px;
-  background: var(--amarelo);
+  background: var(--dourado);
   font-weight: 700;
 }
 

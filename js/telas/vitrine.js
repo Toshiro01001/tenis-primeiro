@@ -90,9 +90,11 @@ function abertura(abrirComoFunciona) {
       el('div', { class: 'abertura__texto' },
         el('p', {}, 'Procure pelo seu número, monte o carrinho e vá até o fim da compra. É um teste: nenhum dinheiro muda de mão.'),
         el('p', { class: 'abertura__acoes' },
-          el('a', { class: 'botao botao--amarelo', href: `#/produto/${destaque.id}` }, `Ver o ${destaque.nome}, ${formatarPreco(destaque.preco)}`),
+          el('a', { class: 'botao botao--dourado', href: `#/produto/${destaque.id}` }, `Ver o ${destaque.nome}, ${formatarPreco(destaque.preco)}`),
           el('button', { type: 'button', class: 'botao-texto botao-texto--claro', onClick: abrirComoFunciona }, 'Como isto funciona'))),
     ),
+    el('div', { class: 'letreiro', 'aria-hidden': 'true' },
+      el('div', { class: 'letreiro__trilho' }, Array.from({ length: 8 }, () => el('span', {}, 'Drop 01 / Só demonstração / Nada à venda')))),
   );
 }
 

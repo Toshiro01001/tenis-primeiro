@@ -1,0 +1,88 @@
+/* Identidade streetwear: preto, dourado e vermelho. Vem por último para ajustar as telas. */
+
+h1, h2, h3 {
+  font-stretch: 75%;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+}
+
+/* Texto escuro em tudo que tem fundo dourado */
+.fita, .pular, .selo-preco, .botao--dourado, .topo__contador,
+.quantidade__botao:hover:not(:disabled),
+.tamanho input:checked + span,
+.opcao input:checked + .opcao__rotulo {
+  color: var(--preto);
+}
+
+.opcao input:checked + .opcao__rotulo { background: var(--dourado); border-color: var(--dourado); }
+.selo-preco--esgotado { background: var(--campo); color: var(--tinta); }
+
+/* Topo com fita de obra */
+.topo { background: #000; color: var(--tinta); }
+.topo::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 5px;
+  background: repeating-linear-gradient(-45deg, var(--dourado) 0 10px, #000 10px 20px);
+}
+.rodape { background: #000; color: var(--tinta); border-top: 5px solid var(--vermelho); }
+.aviso { background: #000; color: var(--tinta); }
+
+/* Botões */
+.botao { font-stretch: 80%; text-transform: uppercase; letter-spacing: 0.03em; border-color: var(--vermelho); }
+.botao:hover { box-shadow: 5px 5px 0 var(--dourado); }
+.botao:active { box-shadow: 1px 1px 0 var(--dourado); }
+.botao--contorno { background: transparent; color: var(--tinta); border-color: var(--dourado); }
+.botao--dourado { border-color: var(--dourado); box-shadow: 4px 4px 0 var(--vermelho); }
+.botao--dourado:hover { box-shadow: 5px 5px 0 var(--vermelho); }
+.botao--dourado:active { box-shadow: 1px 1px 0 var(--vermelho); }
+.botao:disabled { border-color: var(--linha); box-shadow: none; }
+
+/* Abertura */
+.abertura {
+  background:
+    repeating-linear-gradient(-45deg, rgb(224 177 58 / 0.05) 0 2px, transparent 2px 22px),
+    radial-gradient(circle at 78% 62%, rgb(200 16 46 / 0.42), transparent 46%),
+    var(--preto);
+  color: var(--tinta);
+}
+.abertura__titulo {
+  font-size: min(calc((100vw - 2 * var(--respiro)) / 4.7), 250px);
+  font-stretch: 72%;
+  line-height: 0.84;
+  letter-spacing: -0.01em;
+  text-shadow: 0.022em 0.022em 0 var(--vermelho);
+}
+.abertura__titulo span + span { color: var(--dourado); }
+
+/* Letreiro em movimento */
+.letreiro {
+  position: relative;
+  overflow: hidden;
+  background: var(--vermelho);
+  color: #fff;
+  font-weight: 800;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.letreiro__trilho { display: flex; width: max-content; padding-block: 8px; animation: letreiro 60s linear infinite; }
+.letreiro__trilho span { padding-inline: 20px; }
+@keyframes letreiro { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .letreiro__trilho { animation: none; } }
+
+/* Tênis com contorno claro, para o preto aparecer no fundo preto */
+.tenis {
+  filter: drop-shadow(0 0 1px rgb(243 238 226 / 0.65));
+}
+
+/* Prateleira dourada e caixas */
+.caixa::after { background: var(--dourado); }
+.produto__caixa { border-bottom-color: var(--dourado); }
+.produto__caixa-nome { color: var(--caixa-texto, #fff); font-stretch: 75%; text-transform: uppercase; }
+.selo-preco { border-color: #000; }
+
+.expedicao__carimbo { border-color: var(--vermelho); color: var(--erro); }

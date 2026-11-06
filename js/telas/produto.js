@@ -93,7 +93,7 @@ export function telaProduto({ id, voltar }) {
         el('div', { class: 'produto__tenis' }, tenisDoProduto(produto, `Ilustração do tênis ${produto.nome}, cor ${produto.cor.toLowerCase()}`)),
         el('div', { class: 'produto__caixa' }, el('span', { class: 'produto__caixa-nome' }, marca.nome))),
       el('div', { class: 'produto__info' },
-        el('p', { class: 'etiqueta__marca' }, desenharMarca(marca.simbolo, marca.caixa), `${marca.nome}, ${nomeCategoria(produto.categoria).toLowerCase()}`),
+        el('p', { class: 'etiqueta__marca' }, desenharMarca(marca.simbolo, marca.icone), `${marca.nome}, ${nomeCategoria(produto.categoria).toLowerCase()}`),
         el('h1', { class: 'produto__nome', tabindex: '-1' }, produto.nome),
         el('p', { class: 'produto__cor' }, produto.cor),
         selo(produto.preco, 'selo-preco--produto'),

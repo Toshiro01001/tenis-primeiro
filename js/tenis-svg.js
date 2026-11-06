@@ -7,7 +7,7 @@
  */
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const TINTA = '#12133a';
+const TINTA = '#060606';
 
 /* Camadas: [cor, caminho, opções]. "cor" é uma chave da paleta ou uma cor literal. */
 const SILHUETAS = {

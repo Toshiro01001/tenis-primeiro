@@ -14,7 +14,7 @@ export function tenisDoProduto(produto, descricao) {
 
 export function coresDaCaixa(produto) {
   const marca = MARCAS[produto.marca];
-  return { '--caixa': marca.caixa, '--tampa': marca.tampa };
+  return { '--caixa': marca.caixa, '--tampa': marca.tampa, '--caixa-texto': marca.texto };
 }
 
 export function selo(preco, classeExtra = '') {
@@ -45,7 +45,7 @@ export function cartaoProduto(produto, { titulo = 'h3' } = {}) {
       el(
         'div',
         { class: 'etiqueta' },
-        el('p', { class: 'etiqueta__marca' }, desenharMarca(marca.simbolo, marca.caixa), `${marca.nome}, ${nomeCategoria(produto.categoria).toLowerCase()}`),
+        el('p', { class: 'etiqueta__marca' }, desenharMarca(marca.simbolo, marca.icone), `${marca.nome}, ${nomeCategoria(produto.categoria).toLowerCase()}`),
         el(titulo, { class: 'etiqueta__nome' }, el('a', { href: `#/produto/${produto.id}`, class: 'caixa__link' }, produto.nome)),
         gradeDaCaixa(produto),
       ),

@@ -4,7 +4,7 @@
 
 .fita {
   padding: 6px var(--respiro);
-  background: var(--amarelo);
+  background: var(--dourado);
   font-size: var(--texto-p);
   font-weight: 700;
   font-stretch: 88%;
@@ -59,14 +59,14 @@
 
 .topo__nav a:hover,
 .topo__nav a[aria-current='page'] {
-  border-bottom-color: var(--amarelo);
+  border-bottom-color: var(--dourado);
 }
 
 .topo__contador {
   min-width: 24px;
   padding: 0 6px;
   border-radius: 12px;
-  background: var(--amarelo);
+  background: var(--dourado);
   color: var(--tinta);
   font-size: var(--texto-p);
   font-weight: 800;
@@ -75,7 +75,7 @@
 }
 
 .topo :focus-visible {
-  outline-color: var(--amarelo);
+  outline-color: var(--dourado);
 }
 
 /* Rodapé */
@@ -112,7 +112,7 @@
 }
 
 .rodape :focus-visible {
-  outline-color: var(--amarelo);
+  outline-color: var(--dourado);
 }
 
 /* Botões */
@@ -125,7 +125,7 @@
   padding: 8px 20px;
   border: var(--borda);
   border-radius: 3px;
-  background: var(--azul);
+  background: var(--vermelho);
   color: #fff;
   font-weight: 750;
   line-height: 1.15;
@@ -138,16 +138,16 @@
 
 .botao:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0 var(--tinta);
+  box-shadow: 5px 5px 0 var(--vermelho);
 }
 
 .botao:active {
   transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 var(--tinta);
+  box-shadow: 1px 1px 0 var(--vermelho);
 }
 
 .botao:disabled {
-  background: #cfd1de;
+  background: var(--campo);
   color: var(--tinta-suave);
   box-shadow: none;
   transform: none;
@@ -159,8 +159,8 @@
   color: var(--tinta);
 }
 
-.botao--amarelo {
-  background: var(--amarelo);
+.botao--dourado {
+  background: var(--dourado);
   color: var(--tinta);
 }
 
@@ -281,7 +281,7 @@
 }
 
 .caixa:has(.caixa__link:focus-visible) {
-  outline: 3px solid var(--azul);
+  outline: 3px solid var(--dourado);
   outline-offset: 4px;
 }
 
@@ -290,7 +290,7 @@
   flex: 1;
   padding: 10px 10px 8px;
   background: var(--papel);
-  border: 2px solid var(--tinta);
+  border: 2px solid var(--linha);
   border-radius: 2px;
 }
 
@@ -321,7 +321,7 @@
 .grade-caixa {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
-  border-top: 2px solid var(--tinta);
+  border-top: 2px solid var(--linha);
   padding-top: 4px;
   font-size: 0.75rem;
   font-stretch: 68%;
@@ -341,9 +341,9 @@
   align-self: flex-end;
   margin: -2px -4px -2px 0;
   padding: 3px 10px;
-  background: var(--amarelo);
-  border: 2px solid var(--tinta);
-  box-shadow: 3px 3px 0 var(--tinta);
+  background: var(--dourado);
+  border: 2px solid var(--linha);
+  box-shadow: 3px 3px 0 var(--vermelho);
   font-size: 1.125rem;
   font-weight: 850;
   font-stretch: 88%;
@@ -359,8 +359,8 @@
 }
 
 .caixa--esgotada {
-  --caixa: #7f8298;
-  --tampa: #5f627a;
+  --caixa: #3a3a3f;
+  --tampa: #26262a;
 }
 
 .caixa--esgotada .tenis {
@@ -390,11 +390,11 @@
 }
 
 .quantidade__botao:hover:not(:disabled) {
-  background: var(--amarelo);
+  background: var(--dourado);
 }
 
 .quantidade__botao:disabled {
-  color: #9a9cb0;
+  color: #77736b;
   cursor: not-allowed;
 }
 
@@ -429,9 +429,9 @@ select {
   width: 100%;
   min-height: 46px;
   padding: 8px 10px;
-  border: 2px solid var(--tinta);
+  border: 2px solid var(--linha);
   border-radius: 3px;
-  background: #fff;
+  background: var(--campo);
   font-size: 1rem; /* 16 px evita o zoom automático do iPhone ao focar o campo. */
 }
 
@@ -468,7 +468,7 @@ select:focus-visible {
 
 .nota--caixa {
   padding: 12px;
-  border: 2px dashed var(--tinta);
+  border: 2px dashed var(--dourado);
   color: var(--tinta);
   font-size: var(--texto-m);
 }
@@ -477,8 +477,8 @@ select:focus-visible {
 
 .alerta {
   padding: 10px 14px;
-  background: #fff6c0;
-  border-left: 6px solid var(--tinta);
+  background: var(--realce);
+  border-left: 6px solid var(--dourado);
   font-weight: 550;
 }
 
@@ -489,7 +489,7 @@ select:focus-visible {
   align-items: flex-start;
   gap: 10px;
   padding: 28px;
-  border: 3px dashed var(--tinta);
+  border: 3px dashed var(--linha);
   border-radius: 4px;
 }
 
@@ -527,7 +527,7 @@ select:focus-visible {
 }
 
 .valores__desconto {
-  color: #0a6b3f;
+  color: var(--dourado);
 }
 
 .valores__total {
@@ -558,7 +558,7 @@ select:focus-visible {
   padding: 12px 16px;
   background: var(--tinta);
   color: #fff;
-  border: 2px solid var(--amarelo);
+  border: 2px solid var(--dourado);
   border-radius: 3px;
   font-weight: 600;
   animation: aviso-entra 160ms ease-out;
@@ -581,11 +581,11 @@ select:focus-visible {
   border-radius: 4px;
   background: var(--papel);
   color: var(--tinta);
-  box-shadow: 8px 8px 0 var(--tinta);
+  box-shadow: 8px 8px 0 var(--vermelho);
 }
 
 .dialogo::backdrop {
-  background: rgb(18 19 58 / 0.6);
+  background: rgb(0 0 0 / 0.78);
 }
 
 .dialogo h2 {
