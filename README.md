@@ -2,7 +2,7 @@
 
 ![Página inicial da loja Pinhoso's Kicks](docs/tela.webp)
 
-Loja virtual de demonstração. **Pinhoso’s Kicks é um nome fictício, e todas as marcas, modelos, preços, estoques e pedidos foram inventados.** Nada aqui está à venda e nenhum pagamento é feito.
+Fiz esta loja virtual de demonstração. **Pinhoso’s Kicks é um nome fictício, e todas as marcas, modelos, preços, estoques e pedidos foram inventados.** Nada aqui está à venda e nenhum pagamento é feito.
 
 Publicada em: <https://toshiro01001.github.io/tenis-primeiro/>
 

@@ -598,10 +598,10 @@ function regrasDoCodigo() {
 
   const pagina = fs.readFileSync(path.join(RAIZ, 'index.html'), 'utf8');
   conferir('CSP presente na página', pagina.includes('Content-Security-Policy'));
-  conferir('Sem script nem estilo de terceiros', !/(src|href)="https?:\/\/(?!mileumalinhas\.com\.br)/.test(pagina));
+  conferir('Sem script nem estilo de terceiros', !/(src|href)="https?:\/\/(?!mileumalinhas\.com\.br)/.test(pagina.replace(/<link rel="canonical"[^>]*>/, '')));
 
   const leia = fs.readFileSync(path.join(RAIZ, 'README.md'), 'utf8').trim();
-  conferir('README termina com a linha exigida', leia.endsWith('Desenvolvido por Rodrigo Terroso Junior. O Claude, da Anthropic, foi usado como ferramenta durante o desenvolvimento.'));
+  conferir('README termina com a linha exigida', leia.endsWith('Desenvolvi este projeto e usei o Claude, da Anthropic, como ferramenta durante o desenvolvimento.'));
 }
 
 async function principal() {

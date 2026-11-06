@@ -164,3 +164,22 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pagina-404 {
+  max-width: 60ch;
+  margin: auto;
+  padding: 14vh 20px;
+}
+
+.pagina-404 p {
+  margin: 1em 0;
+}

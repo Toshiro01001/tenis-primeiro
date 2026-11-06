@@ -9,6 +9,14 @@
   <title>Pinhoso’s Kicks (demonstração)</title>
   <meta name="description" content="Loja virtual de demonstração, com produtos e preços fictícios. Vitrine, carrinho, checkout simulado e área do lojista em HTML, CSS e JavaScript puros.">
   <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://toshiro01001.github.io/tenis-primeiro/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Pinhoso’s Kicks: loja de tênis de demonstração">
+  <meta property="og:description" content="Vitrine com filtros, carrinho, checkout simulado e área do lojista. Marcas e preços fictícios, nada à venda.">
+  <meta property="og:url" content="https://toshiro01001.github.io/tenis-primeiro/">
+  <meta property="og:image" content="https://toshiro01001.github.io/tenis-primeiro/og.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fontes/archivo-variavel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
@@ -20,7 +28,7 @@
 <body>
   <a class="pular" href="#principal" data-pular>Pular para o conteúdo</a>
 
-  <p class="fita">Loja de demonstração: os produtos e preços são fictícios</p>
+  <p class="fita" role="region" aria-label="Aviso de demonstração">Loja de demonstração: os produtos e preços são fictícios</p>
 
   <header class="topo">
     <div class="topo__miolo">
@@ -45,6 +53,7 @@
   <footer class="rodape">
     <div class="rodape__miolo">
       <p class="rodape__assinatura">Demonstração feita por <a href="https://mileumalinhas.com.br" target="_blank" rel="noopener noreferrer">Mil e Uma Linhas!</a></p>
+      <p>Quer uma loja assim para a sua marca? Escreva para <a href="mailto:contato@mileumalinhas.com.br">contato@mileumalinhas.com.br</a>.</p>
       <p>Pinhoso’s Kicks é uma loja fictícia. Marcas, modelos, preços, estoque e pedidos foram inventados para mostrar como o sistema funciona. Nada aqui está à venda.</p>
       <button type="button" class="botao botao--amarelo" data-abrir-como-funciona>Como isto funciona</button>
     </div>
