@@ -1,6 +1,6 @@
 # Pinhoso's Kicks
 
-Site estático simples de uma loja de tênis, em HTML, com páginas na pasta `departamentos/`.
+Loja virtual de demonstração, com produtos fictícios, em HTML, CSS e JavaScript puros. O `README.md` explica a organização dos arquivos.
 
 ## Regras de trabalho
 

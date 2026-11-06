@@ -1,61 +1,94 @@
-PINHOSO'S KICKS
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="pt-BR">
 <head>
-<title> PINHOSO'S KICKS </title>
-
-<meta char set="utf - 8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Só carrega arquivos deste site. connect-src e form-action em 'none': a página não tem como enviar dados para fora. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Pinhoso’s Kicks (demonstração)</title>
+  <meta name="description" content="Loja virtual de demonstração, com produtos e preços fictícios. Vitrine, carrinho, checkout simulado e área do lojista em HTML, CSS e JavaScript puros.">
+  <meta name="theme-color" content="#2a30d8">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fontes/archivo-variavel.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/telas.css">
+  <script type="module" src="js/app.js"></script>
 </head>
-
 <body>
-    <h1> VENHA CONHECER OS PRODUTOS DA NOSSA LOJA!</H1>
-         <img src="pinhoso.png" width="1500" height="600">
+  <a class="pular" href="#principal" data-pular>Pular para o conteúdo</a>
 
-  <h3> Explore nossa galeria de produtos originais e importados</h2>
+  <p class="fita">Loja de demonstração: os produtos e preços são fictícios</p>
 
-<h5> Aqui você encontra uma grande variedade de produtos perfeitos para completar o seu estilo, com preços que cabem no seu bolso!!!</h5>
+  <header class="topo">
+    <div class="topo__miolo">
+      <a class="topo__logo" href="#/" aria-label="Pinhoso’s Kicks, ir para a vitrine">Pinhoso’s<span class="topo__logo-resto"> Kicks</span></a>
+      <nav class="topo__nav" aria-label="Principal">
+        <a href="#/" data-rota="vitrine">Vitrine</a>
+        <a href="#/lojista" data-rota="lojista">Lojista</a>
+        <a class="topo__carrinho" href="#/carrinho" data-rota="carrinho" aria-label="Carrinho com 0 pares">
+          <span>Carrinho</span>
+          <span class="topo__contador" id="contador-carrinho" hidden>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
 
-<h2> Air Force 1 Low x StashSoft Grey and Harbor Blue </h2>
-     <img src="nike1.jpg" width "600" height="400">
-<h2> R$ 1199,99 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+  <main id="principal" tabindex="-1">
+    <noscript>
+      <p class="sem-script">Esta loja de demonstração precisa de JavaScript para funcionar. Ative o JavaScript no navegador e recarregue a página.</p>
+    </noscript>
+  </main>
 
-<h2> Nike G.T. Cut 2 GTE </h2>
-   <img src="nike2.jpg" width "600" height="400">
-<h2> R$ 1424,99 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+  <footer class="rodape">
+    <div class="rodape__miolo">
+      <p class="rodape__assinatura">Demonstração feita por <a href="https://mileumalinhas.com.br" target="_blank" rel="noopener noreferrer">Mil e Uma Linhas!</a></p>
+      <p>Pinhoso’s Kicks é uma loja fictícia. Marcas, modelos, preços, estoque e pedidos foram inventados para mostrar como o sistema funciona. Nada aqui está à venda.</p>
+      <button type="button" class="botao botao--amarelo" data-abrir-como-funciona>Como isto funciona</button>
+    </div>
+  </footer>
 
-<h2> Nike Dunk High Retro </h2
-   <img src="nike3.jpg" width "600" height="400">
-<h2> R$ 949,99 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+  <div id="avisos" class="avisos" role="status" aria-live="polite"></div>
 
-<h2> Nike Air Max Flyknit Racer </h2>
-   <img src="nike4.jpg" width "600" height="400">
-<h2> R$ 1329,99 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+  <dialog id="como-funciona" class="dialogo" aria-labelledby="titulo-como-funciona">
+    <div class="dialogo__cabeca">
+      <h2 id="titulo-como-funciona">Como isto funciona</h2>
+      <button type="button" class="botao botao--contorno" data-fechar>Fechar</button>
+    </div>
+    <p>Esta é uma loja inteira feita só com HTML, CSS e JavaScript. Ela roda no seu navegador, sem servidor, e por isso pode ser hospedada de graça para ser testada.</p>
 
-<h2> Air Jordan 5 SE </h2>
-   <img src="nike5.jpg" width "600" height="400">
-<h2> R$ 1538,99 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+    <h3>O que está acontecendo por baixo</h3>
+    <dl class="dialogo__lista">
+      <div>
+        <dt>Vitrine</dt>
+        <dd>O catálogo é uma lista de dados. A cada tecla ou clique, o código filtra e ordena essa lista e redesenha as caixas. Os filtros entram no endereço da página, então uma busca pode ser enviada por link.</dd>
+      </div>
+      <div>
+        <dt>Páginas</dt>
+        <dd>Só muda o que vem depois do # no endereço. Um roteador troca a tela sem recarregar a página, e o botão voltar do navegador continua funcionando.</dd>
+      </div>
+      <div>
+        <dt>Carrinho e estoque</dt>
+        <dd>Ficam salvos na memória do seu navegador (localStorage): feche a aba e volte, e continua tudo lá. Cada tamanho tem estoque próprio, e o carrinho não passa desse limite.</dd>
+      </div>
+      <div>
+        <dt>Compra</dt>
+        <dd>Cada campo tem sua regra, e os dígitos do CPF e do cartão são calculados de verdade. Uma regra de segurança da própria página proíbe enviar dados para fora, e CPF, e-mail, endereço e cartão não são guardados.</dd>
+      </div>
+      <div>
+        <dt>Imagens</dt>
+        <dd>Os tênis são desenhos em SVG feitos em código: cinco formatos e uma paleta de cores para cada modelo. Por isso carregam rápido e ficam nítidos em qualquer tela.</dd>
+      </div>
+    </dl>
 
-<h2> Air Jordan Legacy 312 Low </h2>
-   <img src="nike6.jpg" width "600" height="400">
-<h2> R$ 1,00 </h2>
-<h3> 37, 38, 39, 40, 41, 42, 43, 45</h3>
+    <h3>O que dá para adaptar ao seu negócio</h3>
+    <p>Os produtos e suas variações (tamanho de roupa, voltagem, sabor), as fotos, a identidade visual, os cupons, as opções de entrega e os relatórios da área do lojista.</p>
 
+    <h3>O que uma loja real precisa a mais</h3>
+    <p>Servidor e banco de dados, login do lojista, um intermediador de pagamento para Pix e cartão de verdade, cálculo de frete, nota fiscal e política de privacidade. O código já está separado para receber essas partes.</p>
 
-
-<h1> APROVEITE NOSSOS PRODUTOS COM PREÇOS SUPER ACESSÍVEIS !!! </h1>
-
+    <p class="dialogo__contato">Quer algo assim? Fale com a <a href="https://mileumalinhas.com.br" target="_blank" rel="noopener noreferrer">Mil e Uma Linhas!</a></p>
+  </dialog>
 </body>
 </html>
-
-
-
-
-
-            
-

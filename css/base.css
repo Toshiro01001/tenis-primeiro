@@ -1,0 +1,163 @@
+/* Fonte, cores e tipografia: a base de todas as telas. */
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('../assets/fontes/archivo-variavel.woff2') format('woff2');
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+
+:root {
+  --azul: #2a30d8;
+  --azul-fundo: #2329bf;
+  --tinta: #12133a;
+  --tinta-suave: #4b4e6d;
+  --papel: #fbfbfe;
+  --parede: #e4e6f1;
+  --amarelo: #ffe11a;
+  --erro: #bf1228;
+  --borda: 3px solid var(--tinta);
+  --miolo: 1320px;
+  --respiro: clamp(16px, 3vw, 40px);
+  --sombra-dura: 4px 4px 0 var(--tinta);
+
+  --texto-p: 0.875rem;
+  --texto-m: 1rem;
+  --texto-g: 1.25rem;
+  --texto-xg: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--parede);
+  color: var(--tinta);
+  font-family: 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--texto-m);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd,
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+fieldset {
+  border: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+h1:focus {
+  outline: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+svg {
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+.invisivel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pular {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 50;
+  padding: 10px 16px;
+  background: var(--amarelo);
+  font-weight: 700;
+}
+
+.pular:focus {
+  top: 8px;
+}
+
+.sem-script {
+  max-width: 60ch;
+  margin: 48px auto;
+  padding: 0 var(--respiro);
+  font-size: var(--texto-g);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
