@@ -1004,6 +1004,11 @@
   margin-top: 4px;
 }
 
+.estoque__ajuda {
+  max-width: 64ch;
+  margin-bottom: 16px;
+}
+
 .campo--busca-estoque {
   max-width: 420px;
   margin-bottom: 16px;
