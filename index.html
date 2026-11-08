@@ -66,29 +66,38 @@
       <h2 id="titulo-como-funciona">Como isto funciona</h2>
       <button type="button" class="botao botao--contorno" data-fechar>Fechar</button>
     </div>
-    <p>Esta é uma loja inteira feita só com HTML, CSS e JavaScript. Ela roda no seu navegador, sem servidor, e por isso pode ser hospedada de graça para ser testada.</p>
+    <p>Esta é uma loja virtual de exemplo, feita para você ver na prática como uma loja na internet funciona: escolher um produto, colocar no carrinho, fechar a compra e acompanhar o pedido do lado de quem vende. Tudo aqui é fictício e nada é cobrado nem entregue.</p>
 
-    <h3>O que está acontecendo por baixo</h3>
+    <h3>Como testar</h3>
+    <ol class="dialogo__passos">
+      <li>Na vitrine, clique em um tênis. Se quiser, use a busca ou o botão Filtros para achar seu número.</li>
+      <li>Escolha o tamanho e aperte "Adicionar ao carrinho".</li>
+      <li>No carrinho, teste o cupom DEMO10 e aperte "Continuar para os dados".</li>
+      <li>Em cada etapa da compra há um botão "Preencher com dados fictícios", para você não precisar digitar nada seu.</li>
+      <li>Confirme o pedido simulado. Depois abra "Lojista", no topo, para ver o pedido e mexer no estoque como se fosse o dono da loja.</li>
+    </ol>
+
+    <h3>Como funciona por dentro</h3>
     <dl class="dialogo__lista">
       <div>
         <dt>Vitrine</dt>
-        <dd>O catálogo é uma lista de dados. A cada tecla ou clique, o código filtra e ordena essa lista e redesenha as caixas. Os filtros entram no endereço da página, então uma busca pode ser enviada por link.</dd>
+        <dd>O catálogo é uma lista de produtos guardada no próprio site. A cada tecla ou clique, o código filtra e ordena essa lista e redesenha as caixas. Os filtros entram no endereço da página, então uma busca pode ser enviada por link.</dd>
       </div>
       <div>
-        <dt>Páginas</dt>
-        <dd>Só muda o que vem depois do # no endereço. Um roteador troca a tela sem recarregar a página, e o botão voltar do navegador continua funcionando.</dd>
+        <dt>Telas</dt>
+        <dd>É uma página só. O que muda é a parte do endereço depois do #, e o código troca a tela sem recarregar. O botão voltar do navegador continua funcionando.</dd>
       </div>
       <div>
         <dt>Carrinho e estoque</dt>
-        <dd>Ficam salvos na memória do seu navegador (localStorage): feche a aba e volte, e continua tudo lá. Cada tamanho tem estoque próprio, e o carrinho não passa desse limite.</dd>
+        <dd>Ficam salvos na memória do seu navegador (um espaço chamado localStorage, que só este site e só este aparelho enxergam): feche a aba e volte, e continua tudo lá. Cada tamanho tem estoque próprio, e o carrinho não passa desse limite.</dd>
       </div>
       <div>
         <dt>Compra</dt>
-        <dd>Cada campo tem sua regra, e os dígitos do CPF e do cartão são calculados de verdade. Uma regra de segurança da própria página proíbe enviar dados para fora, e CPF, e-mail, endereço e cartão não são guardados.</dd>
+        <dd>Cada campo tem sua regra, e os dígitos do CPF e do cartão são conferidos de verdade, mas só o cartão de teste é aceito. Uma regra de segurança da própria página proíbe enviar dados para fora, e CPF, e-mail, endereço e cartão não são guardados em lugar nenhum.</dd>
       </div>
       <div>
         <dt>Imagens</dt>
-        <dd>Os tênis são desenhos em SVG feitos em código: cinco formatos e uma paleta de cores para cada modelo. Por isso carregam rápido e ficam nítidos em qualquer tela.</dd>
+        <dd>Os tênis são desenhos feitos em código (SVG, um formato de imagem que não perde qualidade ao ampliar): cinco formatos e uma paleta de cores para cada modelo. Por isso carregam rápido e ficam nítidos em qualquer tela.</dd>
       </div>
     </dl>
 
@@ -97,6 +106,21 @@
 
     <h3>O que uma loja real precisa a mais</h3>
     <p>Servidor e banco de dados, login do lojista, um intermediador de pagamento para Pix e cartão de verdade, cálculo de frete, nota fiscal e política de privacidade. O código já está separado para receber essas partes.</p>
+
+    <details class="detalhes">
+      <summary>Detalhes técnicos</summary>
+      <ul>
+        <li>HTML, CSS e JavaScript puros (módulos ES). Sem framework, sem etapa de build e sem CDN: tudo é servido do próprio repositório, inclusive a fonte Archivo (licença SIL Open Font).</li>
+        <li>Página única com roteamento por hash. Cada etapa do checkout tem endereço próprio, e o código impede pular etapas pelo endereço.</li>
+        <li>Carrinho, cupom, estoque e pedidos no localStorage. Se ele estiver bloqueado ou com dado corrompido, a loja continua funcionando e ignora o que for inválido.</li>
+        <li>Preços guardados em centavos (números inteiros), para não haver erro de arredondamento.</li>
+        <li>Validação com dígitos verificadores reais de CPF e algoritmo de Luhn no cartão, com máscaras que formatam enquanto se digita.</li>
+        <li>Política de segurança de conteúdo (CSP) na própria página, com connect-src 'none' e form-action 'none': a página não tem como enviar dados para fora. Todo texto entra na tela por textContent, nunca por innerHTML.</li>
+        <li>Ilustrações em SVG geradas por código, com cinco silhuetas e uma paleta por modelo.</li>
+        <li>Teste de ponta a ponta com Playwright em três tamanhos de tela (computador, iPhone 13 e 320 px), conferindo console limpo, ausência de rolagem lateral, estoque e validações.</li>
+        <li>Código aberto no GitHub, no repositório Toshiro01001/tenis-primeiro, com a organização dos arquivos explicada no README.</li>
+      </ul>
+    </details>
 
     <p class="dialogo__contato">Quer algo assim? Fale com a <a href="https://mileumalinhas.com.br" target="_blank" rel="noopener noreferrer">Mil e Uma Linhas!</a></p>
   </dialog>

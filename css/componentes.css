@@ -616,6 +616,53 @@ select:focus-visible {
   font-weight: 800;
 }
 
+.dialogo__passos {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.4em;
+  line-height: 1.4;
+  list-style: decimal;
+}
+
+.dialogo__passos li::marker {
+  font-weight: 800;
+}
+
+/* Bloco "Detalhes técnicos": fica fechado por padrão, para não atrapalhar quem só quer o texto simples. */
+.detalhes {
+  margin-top: 24px;
+  border: var(--borda);
+  border-radius: 4px;
+}
+
+.detalhes summary {
+  padding: 12px 14px;
+  min-height: 44px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.detalhes summary:focus-visible {
+  outline: 3px solid var(--vermelho);
+  outline-offset: -3px;
+}
+
+.detalhes[open] summary {
+  border-bottom: var(--borda);
+}
+
+.detalhes ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 14px 14px 14px 2.2em;
+  list-style: disc;
+  font-size: var(--texto-p);
+  line-height: 1.45;
+  color: var(--tinta-suave);
+}
+
 .dialogo__contato {
   margin-top: 24px;
   padding-top: 14px;

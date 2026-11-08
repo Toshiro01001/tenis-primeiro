@@ -88,7 +88,7 @@ function abertura(abrirComoFunciona) {
         el('span', {}, 'Pinhoso’s '), el('span', {}, 'Kicks')),
       el('div', { class: 'abertura__tenis', cssVars: coresDaCaixa(destaque) }, tenisDoProduto(destaque)),
       el('div', { class: 'abertura__texto' },
-        el('p', {}, 'Procure pelo seu número, monte o carrinho e vá até o fim da compra. É um teste: nenhum dinheiro muda de mão.'),
+        el('p', {}, 'Loja de tênis de exemplo. Clique em um modelo, escolha o tamanho, monte o carrinho e vá até o fim da compra. É um teste: nenhum dinheiro muda de mão.'),
         el('p', { class: 'abertura__acoes' },
           el('a', { class: 'botao botao--dourado', href: `#/produto/${destaque.id}` }, `Ver o ${destaque.nome}, ${formatarPreco(destaque.preco)}`),
           el('button', { type: 'button', class: 'botao-texto botao-texto--claro', onClick: abrirComoFunciona }, 'Como isto funciona'))),

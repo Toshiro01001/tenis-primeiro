@@ -88,6 +88,7 @@ function abaEstoque(aoMudar) {
 
   desenhar();
   return el('div', {},
+    el('p', { class: 'nota estoque__ajuda' }, 'Troque o número de pares de um tamanho e saia do campo: o estoque é salvo na hora, e a vitrine e o carrinho passam a respeitar o novo limite. Zero deixa o tamanho esgotado.'),
     el('div', { class: 'campo campo--busca-estoque' }, el('label', { for: 'busca-estoque' }, 'Procurar modelo'), busca),
     lista);
 }
@@ -120,7 +121,7 @@ export function telaLojista({ aba, redesenhar }) {
 
   return el('div', { class: 'tela-lojista' },
     el('h1', { class: 'titulo-tela', tabindex: '-1' }, 'Área do lojista'),
-    el('p', { class: 'alerta alerta--simulacao' }, 'Área de demonstração, sem senha. Mostra só o que foi feito neste navegador. Uma loja real teria login e servidor.'),
+    el('p', { class: 'alerta alerta--simulacao' }, 'Este é o lado de quem vende: aqui o dono da loja acompanha os pedidos e ajusta o estoque de cada tamanho. É demonstração, sem senha, e mostra só o que foi feito neste navegador. Uma loja real teria login e servidor.'),
     el('dl', { class: 'painel' },
       el('div', {}, el('dt', {}, 'Pedidos simulados'), el('dd', {}, String(pedidos.length))),
       el('div', {}, el('dt', {}, 'Total simulado'), el('dd', {}, formatarPreco(totalSimulado()))),
