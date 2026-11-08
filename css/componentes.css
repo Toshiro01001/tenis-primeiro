@@ -32,6 +32,9 @@
 }
 
 .topo__logo {
+  /* Amplia a área de toque sem mexer no desenho: em elemento em linha, o
+     preenchimento vertical não empurra nada ao redor */
+  padding-block: 11px;
   font-size: 1.125rem;
   font-weight: 900;
   font-stretch: 125%;
