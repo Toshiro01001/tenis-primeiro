@@ -71,10 +71,11 @@ HTML, CSS e JavaScript puros (módulos ES), SVG e `localStorage`. Sem framework,
 
 ```
 index.html            estrutura fixa: topo, rodapé e o diálogo "Como isto funciona"
+404.html              página de endereço não encontrado do GitHub Pages
 css/base.css          fonte, cores e tipografia
 css/componentes.css   botões, caixa de tênis, campos, diálogo
 css/telas.css         disposição de cada tela
-css/tema.css          identidade visual: vidro, brilho, botões e a abertura
+css/tema.css          identidade (preto, dourado, vermelho, vidro e brilho) e a abertura, carregada por último
 js/app.js             roteador
 js/dados.js           catálogo, cupons, opções de entrega
 js/estado.js          carrinho, estoque, pedidos e localStorage
