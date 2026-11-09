@@ -1,8 +1,9 @@
-/* Vitrine: chamada de abertura, busca, filtros, ordenação e a parede de caixas. */
+/* Vitrine: abertura (js/abertura.js), busca, filtros, ordenação e a parede de caixas. */
 
-import { cartaoProduto, tenisDoProduto, coresDaCaixa } from '../componentes.js';
+import { cartaoProduto } from '../componentes.js';
+import { abertura } from '../abertura.js';
 import { CATEGORIAS, MARCAS, PRODUTOS, TAMANHOS } from '../dados.js';
-import { el, formatarPreco, normalizar, plural } from '../dom.js';
+import { el, normalizar, plural } from '../dom.js';
 import { estoqueDe, estoqueTotal } from '../estado.js';
 
 const PRECOS = PRODUTOS.map((produto) => produto.preco / 100);
@@ -78,26 +79,6 @@ function filtrarProdutos(filtros) {
 const contarFiltros = (f) => f.categorias.size + f.marcas.size + f.tamanhos.size
   + (f.precoMin !== PRECO_MINIMO || f.precoMax !== PRECO_MAXIMO ? 1 : 0);
 
-function abertura(abrirComoFunciona) {
-  const destaque = PRODUTOS[0];
-  return el(
-    'section',
-    { class: 'abertura', 'aria-labelledby': 'titulo-loja' },
-    el('div', { class: 'abertura__miolo' },
-      el('h1', { id: 'titulo-loja', class: 'abertura__titulo', tabindex: '-1' },
-        el('span', {}, 'Pinhoso’s '), el('span', {}, 'Kicks')),
-      el('div', { class: 'abertura__tenis', cssVars: coresDaCaixa(destaque) }, tenisDoProduto(destaque)),
-      el('div', { class: 'abertura__texto' },
-        el('p', {}, 'Loja de tênis de exemplo. Clique em um modelo, escolha o tamanho, monte o carrinho e vá até o fim da compra. É um teste: nenhum dinheiro muda de mão.'),
-        el('p', { class: 'abertura__acoes' },
-          el('a', { class: 'botao botao--dourado', href: `#/produto/${destaque.id}` }, `Ver o ${destaque.nome}, ${formatarPreco(destaque.preco)}`),
-          el('button', { type: 'button', class: 'botao-texto botao-texto--claro', onClick: abrirComoFunciona }, 'Como isto funciona'))),
-    ),
-    el('div', { class: 'letreiro', 'aria-hidden': 'true' },
-      el('div', { class: 'letreiro__trilho' }, Array.from({ length: 8 }, () => el('span', {}, 'Drop 01 / Só demonstração / Nada à venda')))),
-  );
-}
-
 function grupoDeOpcoes(legenda, classe, opcoes, selecionados, aoMudar) {
   return el(
     'fieldset',
@@ -163,7 +144,23 @@ function faixaDePreco(filtros, aoMudar) {
   return raiz;
 }
 
+/* As caixas sobem ao entrar na tela, só na primeira vez: mexer nos filtros não repete o efeito. */
+function surgirAoEntrar(elementos) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const observador = new IntersectionObserver((entradas) => entradas.forEach((entrada) => {
+    if (!entrada.isIntersecting) return;
+    entrada.target.classList.add('surgiu');
+    observador.unobserve(entrada.target);
+  }), { rootMargin: '0px 0px -8% 0px' });
+  [...elementos].forEach((elemento, i) => {
+    elemento.classList.add('vai-surgir');
+    elemento.style.setProperty('--atraso', `${(i % 4) * 70}ms`);
+    observador.observe(elemento);
+  });
+}
+
 export function telaVitrine({ parametros, abrirComoFunciona }) {
+  let primeiraVez = true;
   const filtros = lerDoEndereco(parametros);
   const prateleira = el('div', { class: 'prateleira', id: 'prateleira' });
   const contador = el('p', { class: 'vitrine__contagem', role: 'status' });
@@ -187,6 +184,7 @@ export function telaVitrine({ parametros, abrirComoFunciona }) {
       return;
     }
     prateleira.replaceChildren(...lista.map((produto) => cartaoProduto(produto)));
+    if (primeiraVez) { primeiraVez = false; surgirAoEntrar(prateleira.children); }
   }
 
   function montarPainel() {

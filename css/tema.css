@@ -1,4 +1,31 @@
-/* Identidade streetwear: preto, dourado e vermelho. Vem por último para ajustar as telas. */
+/*
+ * Identidade "Vitrine noturna": a mistura do design system Aero (fundo escuro, painéis de vidro,
+ * brilho, surgimento ao rolar) com a identidade da Pinhoso's (preto, dourado, vermelho, Archivo
+ * condensada, fita de obra, caixas de tênis). Vem por último para ajustar todas as telas.
+ */
+
+:root {
+  --vidro: rgb(243 238 226 / 0.045);
+  --vidro-forte: rgb(20 20 22 / 0.78);
+  --vidro-borda: rgb(243 238 226 / 0.1);
+  --vidro-borda-forte: rgb(243 238 226 / 0.24);
+  --brilho-vermelho: rgb(200 16 46 / 0.4);
+  --brilho-dourado: rgb(224 177 58 / 0.45);
+  --raio: 10px;
+  --raio-p: 6px;
+  --suave: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Grão leve por cima de tudo, como no Aero. O arquivo é do próprio site (a CSP não aceita imagem de fora). */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background: url('../assets/grao.svg');
+}
 
 h1, h2, h3 {
   font-stretch: 75%;
@@ -15,47 +42,128 @@ h1, h2, h3 {
   color: var(--preto);
 }
 
-.opcao input:checked + .opcao__rotulo { background: var(--dourado); border-color: var(--dourado); }
-.selo-preco--esgotado { background: var(--campo); color: var(--tinta); }
-
-/* Topo com fita de obra */
-.topo { background: #000; color: var(--tinta); }
+/* Topo de vidro com a fita de obra correndo embaixo */
+.topo {
+  background: rgb(11 11 12 / 0.74);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  color: var(--tinta);
+}
 .topo::after {
   content: '';
   position: absolute;
   inset: auto 0 0;
-  height: 5px;
-  background: repeating-linear-gradient(-45deg, var(--dourado) 0 10px, #000 10px 20px);
+  height: 4px;
+  background: repeating-linear-gradient(-45deg, var(--dourado) 0 10px, transparent 10px 20px);
+  background-size: 28.28px 100%;
+  opacity: 0.9;
+  animation: obra 1.4s linear infinite;
 }
-.rodape { background: #000; color: var(--tinta); border-top: 5px solid var(--vermelho); }
-.aviso { background: #000; color: var(--tinta); }
+@keyframes obra { to { background-position: 28.28px 0; } }
+.topo__logo { font-stretch: 75%; font-size: 1.3rem; letter-spacing: 0; }
+.topo__logo-resto { color: var(--dourado); }
+.topo__nav a { color: var(--tinta-suave); border-bottom-width: 2px; transition: color 0.2s; }
+.topo__nav a:hover, .topo__nav a[aria-current='page'] { color: var(--tinta); }
+.topo__carrinho { color: var(--tinta) !important; }
+.topo__contador { box-shadow: 0 0 14px var(--brilho-dourado); }
 
-/* Botões */
-.botao { font-stretch: 80%; text-transform: uppercase; letter-spacing: 0.03em; border-color: var(--vermelho); }
-.botao:hover { box-shadow: 5px 5px 0 var(--dourado); }
-.botao:active { box-shadow: 1px 1px 0 var(--dourado); }
-.botao--contorno { background: transparent; color: var(--tinta); border-color: var(--dourado); }
-.botao--dourado { border-color: var(--dourado); box-shadow: 4px 4px 0 var(--vermelho); }
-.botao--dourado:hover { box-shadow: 5px 5px 0 var(--vermelho); }
-.botao--dourado:active { box-shadow: 1px 1px 0 var(--vermelho); }
-.botao:disabled { border-color: var(--linha); box-shadow: none; }
+.rodape {
+  position: relative;
+  background: #000;
+  color: var(--tinta);
+  border-top: 1px solid var(--vidro-borda);
+}
+.rodape::before {
+  content: '';
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--vermelho), var(--dourado), transparent);
+}
 
-/* Abertura */
-.abertura {
-  background:
-    repeating-linear-gradient(-45deg, rgb(224 177 58 / 0.05) 0 2px, transparent 2px 22px),
-    radial-gradient(circle at 78% 62%, rgb(200 16 46 / 0.42), transparent 46%),
-    var(--preto);
+/* Botões: vermelho, dourado e vidro, com brilho que passa ao apontar */
+.botao {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--raio-p);
+  font-stretch: 82%;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: none;
+  transition: transform 0.2s var(--suave), box-shadow 0.25s, border-color 0.2s, background-color 0.2s;
+}
+.botao::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.42) 50%, transparent 65%);
+  translate: -120% 0;
+  transition: translate 0.7s var(--suave);
+  pointer-events: none;
+}
+.botao:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 0 26px var(--brilho-vermelho); }
+.botao:hover:not(:disabled)::after { translate: 120% 0; }
+.botao:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+.botao--dourado { border-color: var(--dourado); }
+.botao--dourado:hover:not(:disabled) { box-shadow: 0 0 28px var(--brilho-dourado); }
+.botao--contorno, .botao--vidro {
+  background: var(--vidro);
+  border-color: var(--vidro-borda-forte);
   color: var(--tinta);
 }
-.abertura__titulo {
-  font-size: min(calc((100vw - 2 * var(--respiro)) / 4.7), 250px);
-  font-stretch: 72%;
-  line-height: 0.84;
-  letter-spacing: -0.01em;
-  text-shadow: 0.022em 0.022em 0 var(--vermelho);
+.botao--contorno::after, .botao--vidro::after { display: none; }
+.botao--contorno:hover:not(:disabled), .botao--vidro:hover:not(:disabled) { border-color: var(--dourado); box-shadow: none; }
+.botao:disabled { background: var(--campo); border-color: var(--vidro-borda); color: var(--tinta-suave); box-shadow: none; }
+.botao:disabled::after { display: none; }
+.botao-texto { text-decoration-color: var(--dourado); text-decoration-thickness: 2px; }
+
+/* Painéis de vidro em todas as telas */
+.filtros, .resumo, .etapa, .linha, .pedido, .estoque__produto, .painel > div, .dialogo, .vazio--pagina {
+  background: var(--vidro);
+  border: 1px solid var(--vidro-borda);
+  border-radius: var(--raio);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
-.abertura__titulo span + span { color: var(--dourado); }
+.dialogo { background: var(--vidro-forte); box-shadow: 0 30px 80px rgb(0 0 0 / 0.6); }
+.dialogo::backdrop { background: rgb(0 0 0 / 0.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+
+/* Campos */
+input[type='text'], input[type='email'], input[type='tel'], input[type='search'], input[type='number'], select {
+  background: rgb(243 238 226 / 0.04);
+  border: 1px solid var(--vidro-borda-forte);
+  border-radius: var(--raio-p);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus-visible, select:focus-visible { outline: none; border-color: var(--dourado); box-shadow: 0 0 0 3px rgb(224 177 58 / 0.25); }
+select option { background: var(--papel); }
+[aria-invalid='true'] { border-color: var(--erro) !important; }
+
+.opcao__rotulo, .tamanho span, .escolha, .estoque__celula input {
+  border: 1px solid var(--vidro-borda-forte);
+  border-radius: var(--raio-p);
+  background: rgb(243 238 226 / 0.03);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.opcao input:hover + .opcao__rotulo, .tamanho input:hover:not(:disabled) + span { border-color: var(--dourado); }
+.opcao input:checked + .opcao__rotulo { background: var(--dourado); border-color: var(--dourado); }
+.tamanho input:checked + span { background: var(--tinta); border-color: var(--tinta); }
+.escolha:has(input:checked) { border-color: var(--dourado); background: rgb(224 177 58 / 0.08); }
+.quantidade { border-radius: var(--raio-p); }
+.etapas__item { border-top-width: 3px; }
+.abas__item { border: 1px solid var(--vidro-borda); background: var(--vidro); }
+.abas__item[aria-current='page'] { border-color: var(--dourado); }
+
+/* Aviso que aparece embaixo */
+.aviso {
+  background: var(--vidro-forte);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--dourado);
+  border-radius: var(--raio);
+  box-shadow: 0 0 30px rgb(224 177 58 / 0.18);
+}
 
 /* Letreiro em movimento */
 .letreiro {
@@ -72,17 +180,222 @@ h1, h2, h3 {
 .letreiro__trilho { display: flex; width: max-content; padding-block: 8px; animation: letreiro 60s linear infinite; }
 .letreiro__trilho span { padding-inline: 20px; }
 @keyframes letreiro { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .letreiro__trilho { animation: none; } }
 
 /* Tênis com contorno claro, para o preto aparecer no fundo preto */
-.tenis {
-  filter: drop-shadow(0 0 1px rgb(243 238 226 / 0.65));
+.tenis { filter: drop-shadow(0 0 1px rgb(243 238 226 / 0.65)); }
+
+/* ABERTURA: título, tênis que se monta com a rolagem e escolha rápida */
+.montagem {
+  position: relative;
+  height: 230vh;
+  background:
+    radial-gradient(circle at 56% 52%, var(--brilho-vermelho), transparent 46%),
+    repeating-linear-gradient(-45deg, rgb(224 177 58 / 0.035) 0 2px, transparent 2px 22px),
+    var(--preto);
+}
+.montagem__fixo {
+  position: sticky;
+  top: 60px;
+  height: calc(100svh - 60px);
+  max-width: var(--miolo);
+  margin-inline: auto;
+  padding: 0 var(--respiro);
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr) 288px;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 36px);
+}
+.selo-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border: 1px solid rgb(224 177 58 / 0.45);
+  border-radius: 99px;
+  color: var(--dourado);
+  font-size: var(--texto-p);
+  font-weight: 650;
+}
+.selo-drop::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--dourado); animation: piscar 2s infinite; }
+@keyframes piscar { 50% { opacity: 0.2; } }
+.montagem__titulo {
+  margin: 16px 0 18px;
+  font-size: clamp(3rem, 6.1vw, 5.8rem);
+  font-stretch: 66%;
+  white-space: nowrap;
+  line-height: 0.86;
+  text-shadow: 0.03em 0.03em 0 var(--vermelho);
+}
+.montagem__titulo span { display: block; }
+.montagem__titulo .vazado { color: transparent; -webkit-text-stroke: 2px var(--dourado); text-shadow: none; }
+.montagem__lide { max-width: 40ch; color: var(--tinta-suave); }
+.montagem__acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.montagem__bancada { position: relative; }
+.montagem__depois:empty { display: none; }
+.montagem__bancada .tenis {
+  width: 118%;
+  margin-left: -9%;
+  overflow: visible;
+  filter: drop-shadow(0 0 1px rgb(243 238 226 / 0.7)) drop-shadow(0 30px 30px rgb(0 0 0 / 0.55));
+}
+.montagem__chamadas { position: absolute; inset: 0; pointer-events: none; }
+.montagem__chamadas li {
+  position: absolute;
+  padding: 5px 10px;
+  border: 1px solid var(--dourado);
+  border-radius: 99px;
+  background: var(--vidro-forte);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 8px;
+  transition: opacity 0.4s, translate 0.4s var(--suave);
+}
+.montagem__chamadas li.ligada { opacity: 1; translate: 0 0; }
+.montagem__chamadas b { color: var(--dourado); font-weight: 750; }
+.montagem__chamadas li:nth-child(1) { left: 0; bottom: 4%; }
+.montagem__chamadas li:nth-child(2) { left: 4%; top: 8%; }
+.montagem__chamadas li:nth-child(3) { right: 0; top: 0; }
+.montagem__chamadas li:nth-child(4) { right: 6%; bottom: 18%; }
+.montagem__progresso {
+  position: absolute;
+  left: var(--respiro);
+  bottom: 22px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--tinta-suave);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.montagem__barra { display: block; width: 120px; height: 3px; background: var(--vidro-borda); border-radius: 2px; overflow: hidden; }
+.montagem__barra::after { content: ''; display: block; height: 100%; width: calc(var(--progresso, 0) * 100%); background: var(--dourado); }
+.montagem--parada { height: auto; }
+.montagem--parada .montagem__fixo { position: relative; top: 0; height: auto; padding-block: 56px; }
+.montagem--parada .montagem__progresso { display: none; }
+
+.escolha-rapida {
+  padding: 20px;
+  background: var(--vidro);
+  border: 1px solid var(--vidro-borda);
+  border-radius: var(--raio);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  display: grid;
+  gap: 8px;
+}
+.escolha-rapida__marca { display: flex; align-items: center; gap: 6px; color: var(--tinta-suave); font-size: var(--texto-p); }
+.escolha-rapida__marca .marca-simbolo { width: 18px; height: 18px; }
+.escolha-rapida__nome { font-size: 1.5rem; font-weight: 900; font-stretch: 72%; text-transform: uppercase; line-height: 1; }
+.escolha-rapida__preco { padding-bottom: 12px; border-bottom: 1px solid var(--vidro-borda); color: var(--dourado); font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.escolha-rapida__rotulo { margin-top: 4px; color: var(--tinta-suave); font-size: 0.78rem; }
+.escolha-rapida__modelos { display: flex; gap: 10px; }
+.escolha-rapida__modelo {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 3px solid var(--preto);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--a) 50%, var(--b) 50%);
+  box-shadow: 0 0 0 1px var(--vidro-borda-forte);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s var(--suave);
+}
+.escolha-rapida__modelo:hover { transform: scale(1.08); }
+.escolha-rapida__modelo[aria-pressed='true'] { box-shadow: 0 0 0 2px var(--dourado), 0 0 16px var(--brilho-dourado); }
+.escolha-rapida__tamanhos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+.escolha-rapida__tamanhos button {
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--vidro-borda-forte);
+  border-radius: var(--raio-p);
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.escolha-rapida__tamanhos button:hover:not(:disabled) { border-color: var(--dourado); }
+.escolha-rapida__tamanhos button[aria-pressed='true'] { background: var(--tinta); border-color: var(--tinta); color: var(--preto); }
+.escolha-rapida__tamanhos button:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
+.escolha-rapida__situacao { min-height: 1.4em; color: var(--tinta-suave); font-size: var(--texto-p); }
+.escolha-rapida .botao-texto { justify-self: center; }
+.escolha-rapida .botao { white-space: nowrap; font-size: 0.9rem; padding-inline: 12px; }
+
+/* VITRINE: caixas de tênis com etiqueta de vidro */
+.vitrine { padding-top: 56px; }
+.caixa::after { background: linear-gradient(90deg, var(--dourado), #b98a1d); }
+.caixa__corpo { border: 1px solid rgb(0 0 0 / 0.5); border-bottom: 0; }
+.caixa__corpo::before { border: 1px solid rgb(0 0 0 / 0.5); }
+/* Sem backdrop-filter aqui: ele criaria uma camada própria e o link da caixa deixaria de cobrir o tênis. */
+.etiqueta {
+  background: rgb(11 11 12 / 0.8);
+  border: 1px solid rgb(243 238 226 / 0.18);
+  border-radius: var(--raio-p);
+}
+.grade-caixa { border-top: 1px solid rgb(243 238 226 / 0.18); }
+.selo-preco { border: 2px solid #000; border-radius: 4px; box-shadow: 3px 3px 0 #000; }
+.selo-preco--esgotado { background: var(--campo); color: var(--tinta); }
+.caixa__tenis { transition: transform 0.45s var(--suave); }
+.caixa:hover .caixa__tenis, .caixa:has(.caixa__link:focus-visible) .caixa__tenis { transform: translateY(-12px) rotate(-4deg); }
+.caixa::before {
+  content: '';
+  position: absolute;
+  inset: 0 10% 40%;
+  background: radial-gradient(circle, var(--caixa), transparent 68%);
+  opacity: 0;
+  filter: blur(18px);
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.caixa:hover::before { opacity: 0.55; }
+.vai-surgir { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--suave) var(--atraso, 0ms), transform 0.8s var(--suave) var(--atraso, 0ms); }
+.vai-surgir.surgiu { opacity: 1; transform: none; }
+
+/* PRODUTO: o tênis flutua sobre a caixa, com brilho na cor da marca */
+.produto__palco::before {
+  content: '';
+  position: absolute;
+  inset: -10% 0 30%;
+  background: radial-gradient(circle, var(--caixa, var(--vermelho)), transparent 62%);
+  opacity: 0.32;
+  filter: blur(24px);
+  pointer-events: none;
+}
+.produto__caixa { border: 1px solid rgb(0 0 0 / 0.5); border-bottom: 12px solid var(--dourado); border-radius: 4px 4px 0 0; }
+.produto__caixa-nome { color: var(--caixa-texto, #fff); font-stretch: 75%; text-transform: uppercase; }
+.ficha { border-top: 1px solid var(--vidro-borda); }
+.ficha > div { border-bottom: 1px solid var(--vidro-borda); }
+
+/* PEDIDO: etiqueta de expedição */
+.expedicao { border-radius: var(--raio); box-shadow: 0 0 40px rgb(200 16 46 / 0.25); }
+.expedicao__carimbo { border-color: var(--vermelho); color: var(--erro); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .produto__tenis { animation: flutuar 6s ease-in-out infinite; }
+  @keyframes flutuar { 50% { transform: translateY(-10px) rotate(-1.2deg); } }
 }
 
-/* Prateleira dourada e caixas */
-.caixa::after { background: var(--dourado); }
-.produto__caixa { border-bottom-color: var(--dourado); }
-.produto__caixa-nome { color: var(--caixa-texto, #fff); font-stretch: 75%; text-transform: uppercase; }
-.selo-preco { border-color: #000; }
+@media (max-width: 960px) {
+  .montagem { height: 210vh; }
+  .montagem__fixo { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); grid-template-rows: auto auto; align-content: center; }
+  .montagem__depois { max-width: 560px; margin: 0 auto; padding: 28px var(--respiro) 36px; }
+}
 
-.expedicao__carimbo { border-color: var(--vermelho); color: var(--erro); }
+@media (max-width: 720px) {
+  .montagem { height: 200vh; }
+  .montagem__fixo { grid-template-columns: minmax(0, 1fr); gap: 8px; top: 56px; height: calc(100svh - 56px); }
+  .montagem__titulo { font-size: clamp(2.9rem, 16vw, 5rem); margin: 12px 0; }
+  .montagem__lide { font-size: 0.95rem; }
+  .montagem__bancada .tenis { width: 100%; margin-left: 0; }
+  .montagem__chamadas li { font-size: 0.7rem; padding: 3px 8px; }
+  .escolha-rapida__tamanhos { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) and (max-height: 700px) {
+  .montagem__lide { display: none; }
+}

@@ -18,6 +18,7 @@ Se quiser recomeçar do zero, a área do lojista tem o botão **Restaurar dados 
 
 ## O que tem
 
+- **Abertura:** role a página e o tênis se monta, peça por peça (solado, cabedal, cadarço e marca), com uma etiqueta para cada parte. Ao lado fica a **escolha rápida**: troque o modelo, escolha o tamanho e aperte **Adicionar ao carrinho** sem sair do topo. No celular, a escolha rápida aparece logo abaixo da abertura.
 - **Vitrine:** tênis em cima da própria caixa, com busca, filtros (categoria, tamanho, faixa de preço, marca) e ordenação. Os filtros ficam no endereço, então uma busca pode ser enviada por link.
 - **Página de produto:** escolha de tamanho e quantidade limitada ao estoque daquele tamanho. Produto sem estoque aparece como esgotado.
 - **Carrinho:** fica salvo no navegador (feche a aba e volte, e continua lá), com o cupom de exemplo `DEMO10`.
@@ -35,6 +36,10 @@ O catálogo é uma lista de produtos guardada no próprio site. Carrinho, cupom,
 Na compra, cada campo tem a sua regra: o CPF e o número do cartão têm os dígitos conferidos de verdade, mas só o cartão de teste é aceito, e CPF, e-mail, endereço e cartão não são guardados em lugar nenhum. O pedido salvo guarda apenas nome, cidade e UF.
 
 Os tênis não são fotos: são desenhos feitos em código (SVG, um formato de imagem que não perde qualidade ao ampliar), com cinco formatos e uma paleta de cores por modelo.
+
+A montagem da abertura usa esse mesmo desenho. Cada camada do tênis começa fora do lugar, e o código devolve cada uma conforme a página rola. Não é vídeo nem uma sequência de imagens, então quase não pesa, nem no celular. Quem ativa "reduzir movimento" no aparelho vê o tênis já montado, sem a rolagem longa.
+
+O visual mistura a identidade da loja (preto, dourado, vermelho, letra condensada, fita de obra e caixas de tênis) com um estilo de vitrine noturna: painéis de vidro, brilho vermelho atrás do tênis e elementos que surgem ao rolar.
 
 ## O que dá para adaptar a um negócio real
 
@@ -69,6 +74,7 @@ index.html            estrutura fixa: topo, rodapé e o diálogo "Como isto func
 css/base.css          fonte, cores e tipografia
 css/componentes.css   botões, caixa de tênis, campos, diálogo
 css/telas.css         disposição de cada tela
+css/tema.css          identidade visual: vidro, brilho, botões e a abertura
 js/app.js             roteador
 js/dados.js           catálogo, cupons, opções de entrega
 js/estado.js          carrinho, estoque, pedidos e localStorage
@@ -76,8 +82,9 @@ js/validacao.js       regras e máscaras dos campos
 js/tenis-svg.js       ilustrações dos tênis
 js/dom.js             ajudantes para montar a tela com segurança
 js/componentes.js     peças usadas em mais de uma tela
+js/abertura.js        tênis que se monta com a rolagem e escolha rápida
 js/telas/             uma tela por arquivo
-assets/               ícone e fonte
+assets/               ícone, fonte e textura de grão
 tests/                teste de ponta a ponta
 ```
 
