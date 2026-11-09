@@ -459,7 +459,7 @@ async function fluxoLojista(pagina, tela) {
 async function fluxoComoFunciona(pagina, tela) {
   await irPara(pagina, '#/');
   await pagina.waitForSelector('.caixa');
-  await pagina.locator('.abertura').getByRole('button', { name: 'Como isto funciona' }).click();
+  await pagina.locator('.montagem').getByRole('button', { name: 'Como isto funciona' }).click();
   const dialogo = pagina.locator('#como-funciona');
   conferir(`${tela.nome}: abre "Como isto funciona"`, await dialogo.isVisible());
   await capturar(pagina, tela, '14-como-funciona', false);
@@ -469,6 +469,51 @@ async function fluxoComoFunciona(pagina, tela) {
   await pagina.locator('.rodape').getByRole('button', { name: 'Como isto funciona' }).click();
   await pagina.keyboard.press('Escape');
   conferir(`${tela.nome}: fecha com Esc`, !(await dialogo.isVisible()));
+}
+
+/** Abertura: o tênis se monta com a rolagem e a escolha rápida coloca o par no carrinho. */
+async function fluxoAbertura(navegador, pagina, tela, base) {
+  await irPara(pagina, '#/');
+  await pagina.waitForSelector('.montagem .tenis');
+  await pagina.evaluate(() => window.scrollTo(0, 0));
+  await pagina.waitForTimeout(300);
+  conferir(`${tela.nome}: abertura começa com parte do tênis montada`, await pagina.locator('.montagem__chamadas li.ligada').count() === 1);
+  const fim = await pagina.evaluate(() => { const m = document.querySelector('.montagem'); return m.offsetTop + m.offsetHeight - innerHeight; });
+  await pagina.evaluate((y) => window.scrollTo(0, y), fim);
+  await pagina.waitForTimeout(400);
+  conferir(`${tela.nome}: rolando, o tênis termina de montar`, await pagina.locator('.montagem__chamadas li.ligada').count() === 4);
+  const pecasNoLugar = await pagina.evaluate(() => [...document.querySelectorAll('.montagem .tenis > g:first-of-type > path')].every((p) => /^translate\(0 0\.0\)/.test(p.getAttribute('transform')) && p.style.opacity === '1'));
+  conferir(`${tela.nome}: todas as peças no lugar no fim`, pecasNoLugar);
+  const estreita = tela.contexto.viewport.width <= 960;
+  conferir(`${tela.nome}: escolha rápida no lugar certo`, await pagina.locator(estreita ? '.montagem__depois .escolha-rapida' : '.montagem__fixo .escolha-rapida').count() === 1);
+  const cartao = pagina.locator('.escolha-rapida');
+  await cartao.scrollIntoViewIfNeeded();
+  await cartao.getByRole('button', { name: /^Correnteza 3/ }).click();
+  conferir(`${tela.nome}: trocar o modelo troca nome e link`, (await cartao.locator('.escolha-rapida__nome').innerText()).toUpperCase() === 'CORRENTEZA 3' && await cartao.getByRole('link', { name: 'Ver detalhes' }).getAttribute('href') === '#/produto/correnteza-3');
+  conferir(`${tela.nome}: tênis da abertura troca junto`, (await pagina.locator('.montagem .tenis').getAttribute('aria-label')).includes('Correnteza 3'));
+  const adicionar = cartao.getByRole('button', { name: 'Adicionar ao carrinho' });
+  conferir(`${tela.nome}: sem tamanho não adiciona`, await adicionar.isDisabled());
+  conferir(`${tela.nome}: tamanho sem estoque fica travado`, await cartao.getByRole('button', { name: 'Tamanho 34, sem estoque' }).isDisabled());
+  await cartao.getByRole('button', { name: 'Tamanho 40', exact: true }).click();
+  const antes = Number((await pagina.locator('#contador-carrinho').innerText()) || 0);
+  await adicionar.click();
+  conferir(`${tela.nome}: escolha rápida põe no carrinho`, Number(await pagina.locator('#contador-carrinho').innerText()) === antes + 1);
+  conferir(`${tela.nome}: aviso da escolha rápida`, (await pagina.locator('#avisos').innerText()).includes('Correnteza 3, tamanho 40'));
+  await alvosDeToque(pagina, tela, 'escolha rápida');
+  await semRolagemLateral(pagina, tela, 'abertura');
+  await capturar(pagina, tela, '15-abertura-montada', false);
+  await irPara(pagina, '#/carrinho');
+  await pagina.waitForSelector('.linha');
+  conferir(`${tela.nome}: par da escolha rápida no carrinho`, (await pagina.locator('.linha', { hasText: 'Correnteza 3' }).innerText()).includes('40'));
+  while (await pagina.locator('.linha__remover').count()) await pagina.locator('.linha__remover').first().click();
+
+  /* Quem pede menos movimento vê o tênis montado, sem a rolagem longa. */
+  const calmo = await navegador.newContext({ ...tela.contexto, reducedMotion: 'reduce' });
+  const p2 = await calmo.newPage();
+  await p2.goto(base);
+  await p2.waitForSelector('.montagem .tenis');
+  conferir(`${tela.nome}: menos movimento mostra tudo montado`, await p2.locator('.montagem--parada').count() === 1 && await p2.locator('.montagem__chamadas li.ligada').count() === 4);
+  await calmo.close();
 }
 
 /** Armazenamento bloqueado ou corrompido não pode derrubar a loja. */
@@ -624,6 +669,7 @@ async function principal() {
     await fluxoCheckout(pagina, tela, base, registro);
     await fluxoLojista(pagina, tela);
     await fluxoComoFunciona(pagina, tela);
+    await fluxoAbertura(navegador, pagina, tela, base);
     if (tela.arquivo === 'computador') {
       await regrasDeValidacao(pagina, base);
       await fluxoTeclado(navegador, tela, base, registro);
