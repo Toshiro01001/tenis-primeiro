@@ -35,11 +35,11 @@ O catálogo é uma lista de produtos guardada no próprio site. Carrinho, cupom,
 
 Na compra, cada campo tem a sua regra: o CPF e o número do cartão têm os dígitos conferidos de verdade, mas só o cartão de teste é aceito, e CPF, e-mail, endereço e cartão não são guardados em lugar nenhum. O pedido salvo guarda apenas nome, cidade e UF.
 
-Os tênis não são fotos: são desenhos feitos em código (SVG, um formato de imagem que não perde qualidade ao ampliar), com cinco formatos e uma paleta de cores por modelo.
+Os tênis não são fotos nem produtos de verdade: são modelos 3D inventados para esta apresentação, montados por código, com cinco formatos e uma paleta de cores por modelo. Nenhum copia um tênis de marca e nenhum leva logo. Nas vitrines aparece uma foto do modelo, tirada na hora pelo próprio navegador; na abertura e na página do produto o tênis é vivo: gira sozinho, acompanha o ponteiro e pode ser arrastado com o mouse ou com o dedo. Se o aparelho não tiver suporte a 3D (WebGL), entra no lugar o desenho plano em SVG dos mesmos modelos.
 
-A montagem da abertura usa esse mesmo desenho. Cada camada do tênis começa fora do lugar, e o código devolve cada uma conforme a página rola. Não é vídeo nem uma sequência de imagens, então quase não pesa, nem no celular. Quem ativa "reduzir movimento" no aparelho vê o tênis já montado, sem a rolagem longa.
+A montagem da abertura usa esse mesmo modelo. Cada peça do tênis (sola, entressola, cabedal, painéis, lingueta, cadarço) começa fora do lugar, e o código devolve cada uma conforme a página rola. Não é vídeo nem uma sequência de imagens. Em aparelho lento, o tênis vivo diminui a própria resolução e espaça os quadros para a página não travar, e ele só é desenhado enquanto está na tela. Quem ativa "reduzir movimento" no aparelho vê o tênis já montado, sem a rolagem longa.
 
-O visual mistura a identidade da loja (preto, dourado, vermelho, letra condensada, fita de obra e caixas de tênis) com um estilo de vitrine noturna: painéis de vidro, brilho vermelho atrás do tênis e elementos que surgem ao rolar.
+O visual se chama "Subsolo": parede preta com uma grade fina que acende onde o ponteiro passa, uma tinta só (branco) e uma luz só (amarelo ácido), cantos retos, colchetes que fecham nos cartões ao passar o mouse e uma mira que acompanha o ponteiro no computador. Os títulos são escritos como legenda de vídeo de celular: letra grossa e redonda, palavra por palavra em plaquinhas que saltam ao aparecer. Quem ativa "reduzir movimento" não vê a mira nem o salto das palavras. A fita de obra do topo e o aviso de que tudo é só apresentação continuam em todas as telas.
 
 ## O que dá para adaptar a um negócio real
 
@@ -53,12 +53,13 @@ Servidor e banco de dados, login do lojista, intermediador de pagamento (Pix e c
 
 ### Tecnologias
 
-HTML, CSS e JavaScript puros (módulos ES), SVG e `localStorage`. Sem framework, sem etapa de build e sem CDN. A fonte é a [Archivo](https://github.com/Omnibus-Type/Archivo), licença SIL Open Font (`assets/fontes/OFL.txt`), servida do próprio repositório.
+HTML, CSS e JavaScript puros (módulos ES), WebGL com [three.js](https://threejs.org) (licença MIT, cópia em `assets/vendor/`), SVG e `localStorage`. Sem framework, sem etapa de build e sem CDN. As fontes são a [Archivo](https://github.com/Omnibus-Type/Archivo) e a [Nunito](https://github.com/googlefonts/nunito), ambas com licença SIL Open Font (`assets/fontes/OFL.txt` e `assets/fontes/OFL-nunito.txt`), servidas do próprio repositório.
 
 - Roteamento por hash (`#/produto/praca-88`, `#/checkout/entrega`). Cada etapa do checkout tem endereço próprio, e o código impede pular etapas pelo endereço.
 - Os preços são guardados em centavos (inteiros), para não haver erro de arredondamento.
 - O CPF usa os dígitos verificadores reais e o cartão usa o algoritmo de Luhn; as máscaras formatam enquanto se digita.
-- As ilustrações são geradas por código em `js/tenis-svg.js`.
+- Os modelos 3D são gerados por código em `js/tenis-3d.js`; a ilustração de reserva, em `js/tenis-svg.js`.
+- A grade, os colchetes, a mira e o salto das palavras partem de construções do GetLayers (estilo Artefakt, cursor Crosshair HUD e animação Pop Words), reescritas em JavaScript puro para este site.
 
 ### Segurança e privacidade
 
@@ -75,17 +76,20 @@ index.html            estrutura fixa: topo, rodapé e o diálogo "Como isto func
 css/base.css          fonte, cores e tipografia
 css/componentes.css   botões, caixa de tênis, campos, diálogo
 css/telas.css         disposição de cada tela
-css/tema.css          identidade (preto, dourado, vermelho, vidro e brilho) e a abertura, carregada por último
+css/tema.css          identidade anterior e a estrutura da abertura
+css/subsolo.css       identidade "Subsolo" (grade, legendas, colchetes), carregada por último
 js/app.js             roteador
 js/dados.js           catálogo, cupons, opções de entrega
 js/estado.js          carrinho, estoque, pedidos e localStorage
 js/validacao.js       regras e máscaras dos campos
-js/tenis-svg.js       ilustrações dos tênis
+js/tenis-3d.js        modelos 3D dos tênis (foto para as vitrines e tênis vivo)
+js/tenis-svg.js       ilustrações dos tênis, usadas quando não há WebGL
+js/efeitos.js         luz da grade, mira e palavras que saltam
 js/dom.js             ajudantes para montar a tela com segurança
 js/componentes.js     peças usadas em mais de uma tela
 js/abertura.js        tênis que se monta com a rolagem e escolha rápida
 js/telas/             uma tela por arquivo
-assets/               ícone, fonte e textura de grão
+assets/               ícone, fontes, textura de grão e a cópia do three.js
 tests/                teste de ponta a ponta
 ```
 
