@@ -233,4 +233,5 @@ input, select, textarea { background-color: var(--campo); border: 1px solid var(
 .caixa__tenis { background: radial-gradient(closest-side, rgb(255 255 255 / 0.1), transparent); }
 @media (max-width: 960px) {
   .montagem__dica { position: static; text-align: center; }
+  .montagem__chamadas li:nth-child(1) { bottom: 2.6em; }
 }
