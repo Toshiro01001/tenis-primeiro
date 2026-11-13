@@ -4,11 +4,14 @@ import { MARCAS, TAMANHOS, CATEGORIAS } from './dados.js';
 import { el, formatarPreco } from './dom.js';
 import { estoqueDe, estoqueTotal } from './estado.js';
 import { desenharMarca, desenharTenis } from './tenis-svg.js';
+import { fotoDoTenis, tem3d, tenisVivo } from './tenis-3d.js';
 
 export const nomeCategoria = (id) => CATEGORIAS.find((categoria) => categoria.id === id)?.nome ?? '';
 
 /** Passa os dados da marca (cor e símbolo) para o desenho e para o CSS. */
 export function tenisDoProduto(produto, descricao) {
+  // Com WebGL, o tênis é um modelo 3D: vivo onde tem descrição (abertura e página do produto), foto nos demais lugares.
+  if (tem3d()) return descricao ? tenisVivo(produto, descricao) : fotoDoTenis(produto);
   return desenharTenis({ ...produto, marcaSimbolo: MARCAS[produto.marca].simbolo }, { descricao });
 }
 

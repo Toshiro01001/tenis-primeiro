@@ -1,0 +1,237 @@
+/*
+ * Identidade "Subsolo": o último arquivo de estilo, por cima dos outros.
+ * Fundo de grade fina que acende onde o ponteiro passa, uma tinta só (branco) e uma luz só (amarelo ácido),
+ * cantos retos, colchetes nos cantos ao passar o mouse e títulos escritos como legenda de vídeo de celular.
+ * A grade e os colchetes seguem o estilo Artefakt, do GetLayers.
+ */
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../assets/fontes/nunito-variavel.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+:root {
+  --dourado: #eaff00;
+  --preto: #0d0d0d;
+  --parede: #0d0d0d;
+  --papel: #0d0d0d;
+  --campo: #131313;
+  --realce: #1c1f00;
+  --tinta: #ffffff;
+  --tinta-suave: rgb(255 255 255 / 0.64);
+  --linha: rgb(255 255 255 / 0.18);
+  --borda: 1px solid var(--linha);
+  --sombra-dura: 0 0 0 transparent;
+  --vidro: transparent;
+  --vidro-forte: #0d0d0d;
+  --vidro-borda: rgb(255 255 255 / 0.18);
+  --vidro-borda-forte: rgb(255 255 255 / 0.4);
+  --brilho-dourado: rgb(234 255 0 / 0.4);
+  --raio: 0px;
+  --raio-p: 0px;
+  --legenda: 'Nunito', 'Archivo', system-ui, sans-serif;
+  --cantos:
+    linear-gradient(var(--tinta) 0 0) left top / 14px 1px no-repeat,
+    linear-gradient(var(--tinta) 0 0) left top / 1px 14px no-repeat,
+    linear-gradient(var(--tinta) 0 0) right top / 14px 1px no-repeat,
+    linear-gradient(var(--tinta) 0 0) right top / 1px 14px no-repeat,
+    linear-gradient(var(--tinta) 0 0) left bottom / 14px 1px no-repeat,
+    linear-gradient(var(--tinta) 0 0) left bottom / 1px 14px no-repeat,
+    linear-gradient(var(--tinta) 0 0) right bottom / 14px 1px no-repeat,
+    linear-gradient(var(--tinta) 0 0) right bottom / 1px 14px no-repeat;
+}
+
+/* Cantos retos em tudo; as legendas, mais abaixo, são a única exceção. */
+main *, .topo *, .rodape *, .dialogo, .dialogo * { border-radius: 0 !important; }
+
+/* GRADE: células de 10 px com fio preto. A luz fica numa camada fixa e segue o ponteiro (js/efeitos.js). */
+html { background: #0d0d0d; }
+body { background: transparent; color: var(--tinta); }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(#000 1px, transparent 1px) 0 0 / 10px 10px,
+    linear-gradient(90deg, #000 1px, transparent 1px) 0 0 / 10px 10px,
+    radial-gradient(340px circle at var(--mx, 50%) var(--my, 32%), rgb(255 255 255 / 0.13), transparent 70%),
+    #0d0d0d;
+}
+
+/* MIRA (só com mouse): uma camada por cima de tudo que não recebe cliques. */
+.mira { position: fixed; inset: 0; z-index: 70; width: 100vw; height: 100vh; pointer-events: none; }
+
+/* LEGENDAS: títulos em letra grossa e redonda, palavra por palavra em plaquinhas, como legenda de vídeo. */
+h1, h2, h3, .escolha-rapida__nome, .etiqueta__nome, .produto__nome, .produto__caixa-nome {
+  font-family: var(--legenda);
+  font-stretch: 100%;
+  font-weight: 900;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+.titulo-tela { font-weight: 1000; font-stretch: 100%; line-height: 1.5; }
+.salto {
+  display: inline-block;
+  padding: 0.02em 0.3em 0.06em;
+  margin-block: 0.08em;
+  border-radius: 0.3em !important;
+  background: var(--tinta);
+  color: #000;
+  line-height: 1.15;
+  transform-origin: 50% 70%;
+  will-change: transform;
+}
+.salto:last-child { background: var(--dourado); }
+h2 .salto, h3 .salto { padding-inline: 0.26em; }
+
+/* TOPO, FITA E RODAPÉ */
+.fita { font-family: var(--legenda); font-weight: 800; letter-spacing: 0; }
+.topo { background: rgb(13 13 13 / 0.86); border-bottom: 1px solid var(--linha); }
+.topo__logo { font-family: var(--legenda); font-stretch: 100%; font-weight: 1000; font-size: 1.25rem; }
+.topo__contador { box-shadow: none; }
+.rodape { background: #000; }
+
+/* BOTÕES: branco é a ação comum, amarelo é a ação principal, fio é a secundária. */
+.botao {
+  border: 1px solid var(--tinta);
+  background: var(--tinta);
+  color: #000;
+  font-family: var(--legenda);
+  font-weight: 900;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: none;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.botao:hover, .botao:active { transform: none; box-shadow: none; background: transparent; color: var(--tinta); }
+.botao--dourado { background: var(--dourado); border-color: var(--dourado); color: #000; }
+.botao--dourado:hover:not(:disabled) { background: transparent; color: var(--dourado); }
+.botao--contorno, .botao--vidro { background: transparent; border-color: var(--linha); color: var(--tinta); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.botao--contorno:hover, .botao--vidro:hover { border-color: var(--tinta); }
+.botao:disabled, .botao:disabled:hover { background: var(--campo); border-color: var(--linha); color: var(--tinta-suave); }
+input, select, textarea { background-color: var(--campo); border: 1px solid var(--linha); color: var(--tinta); }
+
+/* ABERTURA */
+.montagem { background: none; }
+.montagem__titulo {
+  font-family: var(--legenda);
+  font-weight: 1000;
+  font-stretch: 100%;
+  font-size: clamp(2.9rem, 5.4vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-shadow: none;
+}
+.montagem__titulo span {
+  display: block;
+  width: max-content;
+  color: var(--tinta);
+  -webkit-text-stroke: 0.16em #000;
+  paint-order: stroke fill;
+  text-shadow: 0.05em 0.07em 0 #000;
+}
+.montagem__titulo .vazado {
+  margin-top: 0.06em;
+  padding: 0 0.26em 0.05em;
+  border-radius: 0.26em !important;
+  background: var(--dourado);
+  color: #000;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  rotate: -3deg;
+}
+.selo-drop { border-color: var(--linha); color: var(--tinta); font-family: var(--legenda); font-weight: 800; }
+.montagem__bancada { padding-block: 6%; background: var(--cantos); }
+.montagem__bancada::before {
+  content: '';
+  position: absolute;
+  inset: 54% 6% 2%;
+  border: 1px solid var(--linha);
+  border-radius: 50% !important;
+  background: radial-gradient(closest-side, rgb(234 255 0 / 0.2), transparent);
+  pointer-events: none;
+}
+.montagem__bancada .tenis, .tenis--foto, .tenis--vivo { filter: none; }
+.montagem__bancada .tenis { position: relative; width: 100%; margin-left: 0; }
+.tenis--vivo { display: block; touch-action: pan-y; cursor: grab; }
+.tenis--vivo:active { cursor: grabbing; }
+.montagem__dica {
+  position: absolute;
+  right: 22px;
+  bottom: 8px;
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.montagem__chamadas li {
+  border: 0;
+  border-radius: 0.5em !important;
+  background: rgb(0 0 0 / 0.82);
+  color: var(--tinta);
+  font-family: var(--legenda);
+  font-weight: 800;
+}
+.montagem__progresso { font-family: var(--legenda); text-transform: none; letter-spacing: 0; }
+.escolha-rapida { background: #0d0d0d; border-color: var(--linha); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.escolha-rapida__nome { font-size: 1.6rem; }
+.escolha-rapida__modelo[aria-pressed='true'] { box-shadow: 0 0 0 2px #0d0d0d, 0 0 0 3px var(--dourado); }
+.letreiro { background: var(--dourado); color: #000; font-family: var(--legenda); font-stretch: 100%; font-weight: 900; text-transform: none; letter-spacing: 0; }
+
+/* VITRINE: a caixa perde o recheio colorido; a cor da marca vira um fio de luz na tampa. */
+.caixa::after { height: 1px; background: var(--linha); }
+.caixa::before { display: none; }
+.caixa__corpo { background: #0d0d0d; border: 1px solid var(--linha); border-bottom: 0; }
+.caixa__corpo::before { height: 3px; margin: -1px -13px 0; border: 0; background: var(--caixa); box-shadow: 0 0 18px var(--caixa); }
+.caixa__tenis { margin: 0 0 -4%; }
+.caixa:hover .caixa__tenis, .caixa:has(.caixa__link:focus-visible) .caixa__tenis { transform: translateY(-10px) scale(1.06); }
+.etiqueta { background: transparent; border: 0; padding-inline: 0; }
+.etiqueta__nome { font-size: 1.3rem; font-weight: 900; }
+.grade-caixa { border-top: 1px solid var(--linha); }
+.selo-preco { border: 0; box-shadow: none; transform: none; font-family: var(--legenda); font-stretch: 100%; font-weight: 900; border-radius: 0.3em !important; }
+/* Colchetes: ficam afastados e fecham no card quando o ponteiro chega. */
+.caixa__link::after { inset: -12px; background: var(--cantos); opacity: 0; transition: inset 0.3s var(--suave), opacity 0.2s; }
+.caixa:hover .caixa__link::after, .caixa:has(.caixa__link:focus-visible) .caixa__link::after { inset: -4px; opacity: 1; }
+.caixa__link:hover { text-decoration: none; }
+
+/* PRODUTO */
+.produto__palco::before { background: radial-gradient(circle, var(--caixa, #fff), transparent 62%); opacity: 0.18; }
+.produto__palco { background: var(--cantos); }
+.produto__tenis { margin: 0; animation: none !important; }
+.produto__caixa { background: transparent; border: 0; border-top: 3px solid var(--caixa); min-height: 0; padding: 14px 0 0; }
+.produto__caixa::before { display: none; }
+.produto__caixa-nome { color: var(--tinta); }
+.expedicao { box-shadow: none; border: 1px solid var(--linha); }
+
+@media (max-width: 720px) {
+  .montagem__titulo { font-size: clamp(2.5rem, 13vw, 4rem); margin: 10px 0; }
+  .montagem__bancada { padding-block: 2%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caixa__link::after { transition: none; }
+}
+
+/* O vermelho da identidade antiga sai de cena: nada de sombra dura nem brilho colorido. */
+:root { --vermelho: #ffffff; --brilho-vermelho: transparent; }
+.botao:hover:not(:disabled), .botao:active:not(:disabled) { transform: none; box-shadow: none; }
+.botao::after { display: none; }
+.dialogo, .expedicao, .tamanho input:checked + span { box-shadow: none; }
+.dialogo { border: 1px solid var(--vidro-borda-forte); background: #0d0d0d; }
+.etapas__item--atual::before { color: #000; }
+.escolha input { accent-color: var(--dourado); }
+.detalhes summary:focus-visible { outline-color: var(--dourado); }
+.tamanho input:disabled + span {
+  background: linear-gradient(to top right, transparent calc(50% - 0.5px), var(--linha) calc(50% - 0.5px), var(--linha) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+}
+.expedicao__carimbo { border-color: var(--dourado); color: var(--dourado); }
+/* luz de fundo para o tênis escuro não sumir na parede escura */
+.caixa__tenis { background: radial-gradient(closest-side, rgb(255 255 255 / 0.1), transparent); }
+@media (max-width: 960px) {
+  .montagem__dica { position: static; text-align: center; }
+  .montagem__chamadas li:nth-child(1) { bottom: 2.6em; }
+}

@@ -57,7 +57,8 @@ async function abrirPagina(contexto, tela, registro) {
   const pagina = await contexto.newPage();
   pagina.setDefaultTimeout(6000);
   pagina.on('console', (mensagem) => {
-    if (['error', 'warning'].includes(mensagem.type())) registro.console.push(`${tela.nome}: ${mensagem.text()}`);
+    // "GL Driver Message" é recado de desempenho do desenho 3D por software do navegador de teste, não é erro do site
+    if (['error', 'warning'].includes(mensagem.type()) && !mensagem.text().includes('GL Driver Message')) registro.console.push(`${tela.nome}: ${mensagem.text()}`);
   });
   pagina.on('pageerror', (erro) => registro.console.push(`${tela.nome}: ${erro.message}`));
   pagina.on('requestfailed', (pedido) => registro.console.push(`${tela.nome}: falha em ${pedido.url()}`));
@@ -158,7 +159,7 @@ async function fluxoVitrine(pagina, tela, base) {
   await pagina.waitForSelector('.caixa');
   await pagina.waitForTimeout(800);
 
-  conferir(`${tela.nome}: rótulo de demonstração visível`, await pagina.getByText('Loja de demonstração: os produtos e preços são fictícios', { exact: true }).isVisible());
+  conferir(`${tela.nome}: rótulo de demonstração visível`, await pagina.getByText('Só uma apresentação: loja fictícia, tênis inventados em 3D e sem marca, nada à venda', { exact: true }).isVisible());
   conferir(`${tela.nome}: 14 modelos na vitrine`, await contagem(pagina) === 14);
   conferir(`${tela.nome}: nome da loja no título`, (await pagina.locator('h1').innerText()).replace(/\s+/g, ' ').toUpperCase() === 'PINHOSO’S KICKS');
   const rodape = pagina.locator('.rodape__assinatura');
@@ -482,7 +483,8 @@ async function fluxoAbertura(navegador, pagina, tela, base) {
   await pagina.evaluate((y) => window.scrollTo(0, y), fim);
   await pagina.waitForTimeout(400);
   conferir(`${tela.nome}: rolando, o tênis termina de montar`, await pagina.locator('.montagem__chamadas li.ligada').count() === 4);
-  const pecasNoLugar = await pagina.evaluate(() => [...document.querySelectorAll('.montagem .tenis > g:first-of-type > path')].every((p) => /^translate\(0 0\.0\)/.test(p.getAttribute('transform')) && p.style.opacity === '1'));
+  // com WebGL o tênis é um modelo 3D num canvas, que avisa quando terminou de montar; sem WebGL, é o desenho em SVG
+  const pecasNoLugar = await pagina.evaluate(() => document.querySelector('.montagem .tenis').tagName === 'CANVAS' ? document.querySelector('.montagem .tenis').dataset.montado === '1' : [...document.querySelectorAll('.montagem .tenis > g:first-of-type > path')].every((p) => /^translate\(0 0\.0\)/.test(p.getAttribute('transform')) && p.style.opacity === '1'));
   conferir(`${tela.nome}: todas as peças no lugar no fim`, pecasNoLugar);
   const estreita = tela.contexto.viewport.width <= 960;
   conferir(`${tela.nome}: escolha rápida no lugar certo`, await pagina.locator(estreita ? '.montagem__depois .escolha-rapida' : '.montagem__fixo .escolha-rapida').count() === 1);

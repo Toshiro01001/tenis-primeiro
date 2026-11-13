@@ -68,8 +68,8 @@ export function abertura(abrirComoFunciona) {
 
   function desenharTenis() {
     const svg = tenisDoProduto(atual, `Tênis ${atual.nome}, ${atual.cor}`);
-    bancada.replaceChildren(svg, lista);
-    posicionar = montavel(svg);
+    bancada.replaceChildren(svg, lista, ...(svg.montar ? [el('p', { class: 'montagem__dica' }, 'Arraste o tênis para girar')] : []));
+    posicionar = svg.montar ?? montavel(svg);   // o modelo 3D se monta sozinho; o desenho em SVG, peça por peça
     posicionar(progresso);
     lista.replaceChildren(...chamadas(atual).map(([rotulo, valor], i) => el('li', { 'data-em': String([0.22, 0.5, 0.78, 0.92][i]) }, el('b', {}, rotulo), ` ${valor}`)));
     ligarChamadas();
@@ -133,7 +133,7 @@ export function abertura(abrirComoFunciona) {
       el('div', { class: 'montagem__texto' },
         el('p', { class: 'selo-drop' }, 'Drop 01, só demonstração'),
         el('h1', { id: 'titulo-loja', class: 'montagem__titulo', tabindex: '-1' }, el('span', {}, 'Pinhoso’s'), el('span', { class: 'vazado' }, 'Kicks')),
-        el('p', { class: 'montagem__lide' }, 'Loja de tênis de exemplo. Role a página e veja o tênis se montar. Escolha o modelo e o tamanho, monte o carrinho e vá até o fim da compra. Nenhum dinheiro muda de mão.'),
+        el('p', { class: 'montagem__lide' }, 'Loja de tênis de exemplo, com modelos 3D inventados e sem marca. Role a página e veja o tênis se montar. Escolha o modelo e o tamanho, monte o carrinho e vá até o fim da compra. Nenhum dinheiro muda de mão.'),
         el('p', { class: 'montagem__acoes' },
           el('button', { type: 'button', class: 'botao botao--dourado', onClick: () => document.getElementById('vitrine')?.scrollIntoView({ behavior: calmo() ? 'auto' : 'smooth' }) }, 'Ver a vitrine'),
           el('button', { type: 'button', class: 'botao botao--vidro', onClick: abrirComoFunciona }, 'Como isto funciona'))),
